@@ -73,40 +73,62 @@ $$ c_{diffuse} = (c_{light} \cdot m_{diffuse}) \max (0, \hat n \cdot I) $$
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
+//双引号里面是这个Shader的名字
 Shader "Custom/DiffuseVertexLevel" {
     Properties {
+        //为了得到并且控制材质的漫反射颜色，在Properties语义块中声明Color类型的属性，初始值设为白色。
         _Diffuse ("Diffuse", Color) = (1, 1, 1, 1)
     }
     SubShader {
+        //在SubShader语义块中定义一个Pass语义块。这是因为顶点、片元着色器的代码需要写在Pass语义块，而非SubShader语义块中。
         Pass {
+            //在Pass的第一行，指明了该Pass的光照模式
+            //LightMode标签是Pass标签中的一种，它用于定义该Pass在Unity的光照流水线中的角色，在第9章中我们会更详细地解释它。在这里，我们只需要知道，只有定义了正确的LightMode，我们才能得到一些Unity的内置光照变量，例如下面要讲到的_LightColor0.
             Tags { "LightMode" = "ForwardBase" }
+            //使用CGPROGRAM和ENDCG来包围CG代码片，以定义最重要的顶点着色器和片元着色器代码。
             CGPROGRAM
+            //使用#pragma指令来告诉Unity，我们定义的顶点着色器和片元着色器叫什么名字。在本例中，它们的名字分别是vert和frag。
             #pragma vertex vert
             #pragma fragment frag
+            //为了使用Unity内置的一些变量，如后面要讲到的_LightColor0，还需要包含进Unity的内置文件Lighting.cginc
             #include "Lighting.cginc"
-            
+            //为了在Shader中使用Properties语义块中声明的属性，我们需要定义一个和该属性类型相匹配的变量。
+            //通过这样的方式，我们就可以得到漫反射公式中需要的参数之一——材质的漫反射属性。由于颜色属性的范围在0到1之间，因此可以使用fixed精度的变量来存储它。
             fixed4 _Diffuse;
-
+            //定义顶点着色器的输入和输出结构体（输出结构体同时也是片元着色器的输入结构体）
             struct a2v {
                 float4 vertex : position;
+                //为了访问顶点的法线，需要定义一个normal变量，并通过使用NORMAL语义来告诉Unity要把模型顶点的法线信息存储到normal变量中。
                 float3 normal : normal;
             };
 
             struct v2f {
                 float4 pos : sv_position;
+                //为了把在顶点着色器中计算得到的光照颜色传递给片元着色器，需要定义一个color变量。并不是必须使用COLOR语义，一些资料中会使用TEXCOORD0语义。
                 fixed3 color : color;
             };
 
             v2f vert(a2v v) {
                 v2f o;
+                //把坐标点从对象空间转换到相机的齐次坐标裁剪空间。参考 https://docs.unity3d.com/Manual/SL-BuiltinFunctions.html
                 o.pos = UnityObjectToClipPos(v.vertex);
+                //获取环境光项
                 fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+                //把法线从对象空间转换到世界空间
                 fixed3 worldNormal = normalize(mul(v.normal, (float3x3)unity_WorldToObject));
+                //获取灯光在世界空间的方向
                 fixed3 worldLight = normalize(_WorldSpaceLightPos0.xyz);
+                //计算漫反射项
                 fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLight));
+                //最终结果为环境光+漫反射
                 o.color = ambient + diffuse;
                 return o;
             }
+
+            /*
+            顶点着色器最基本的任务就是把顶点位置从模型空间转换到裁剪空间中。因此我们需要使用Unity内置的模型*世界*投影矩阵 UNITY_MATRIX_MVP 来完成这样的坐标转换。接下来，通过Unity内置变量 UNITY_LIGHTMODEL_AMBIENT得到环境光部分。
+            
+            */
 
             fixed4 frag(v2f i) : sv_target {
                 return fixed4(i.color, 1.0);
