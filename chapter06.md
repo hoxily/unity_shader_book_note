@@ -59,6 +59,10 @@ $$ c_{diffuse} = (c_{light} \cdot m_{diffuse}) \max (0, \hat n \cdot I) $$
 
 我们首先来看如何实现一个逐顶点的漫反射光照效果。在学习完本节后，我们会得到类似图6.6中的效果。
 
+![图6.6 逐顶点的漫反射光照效果](images/chapter06_vertex_level_diffuse_lighting.png)
+
+图6.6 逐顶点的漫反射光照效果
+
 为此，我们进行如下准备工作。
 
 1. 在Unity中新建一个场景。在本书资源中，该场景名为Scene_6_4.在Unity5.2中，默认情况下场景将包含一个摄像机和一个平行光，并且使用了内置的天空盒子。在Window->Lighting->Skybox中去掉场景中的天空盒子。
