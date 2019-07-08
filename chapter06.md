@@ -155,3 +155,70 @@ Shader "Custom/DiffuseVertexLevel" {
 最后，我们需要把这个Unity Shader的回退shader设置为内置的Diffuse。
 
 至此，我们已经详细解释了逐顶点的漫反射光照的实现。对于细分程度较高的模型，逐顶点光照已经可以得到比较好的光照效果了。但对于一些细分程度较低的模型，逐顶点光照就会出现一些视觉问题，例如我们可以在图6.6中看到在胶囊体的背光面与向光面交界处有一些锯齿。为了解决这些问题，我们可以使用逐像素的漫反射光照。
+
+### 6.4.2 实践：逐像素光照
+
+我们只需要对Shader进行一些更改就可以实现逐像素的漫反射效果，如图 6.7 所示。
+
+![图6.7 逐像素的漫反射光照效果](images/chapter06_pixel_level_diffuse_lighting.png)
+
+图6.7 逐像素的漫反射光照效果
+
+为此，我们进行如下的准备工作。
+
+1. 使用6.4.1节中使用的场景。
+2. 新建一个材质。在本书资源中，该材质名为DiffusePixelLevelMat。
+3. 新建一个Unity Shader。在本书资源中，该Shader名为Chapter6-DiffusePixelLevel。把新的Shader赋给第2步中创建的材质。
+4. 把第2步中创建的材质赋给胶囊体。
+
+Chapter6-DiffusePixelLevel的代码和6.4.1小节中的非常相似，因此我们首先把6.4.1节中的代码直接粘贴到Chapter6-DiffusePixelLevel中，并进行如下修改。完整代码如下。
+
+```shaderlab
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/DiffusePixelLevel" {
+    Properties {
+        _Diffuse ("Diffuse", Color) = (1, 1, 1, 1)
+    }
+    SubShader {
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "Lighting.cginc"
+
+            fixed4 _Diffuse;
+
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+            };
+            //顶点着色器不需要计算光照模型，只需要把世界空间下的法线传递给片元着色器即可。
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = UnityObjectToClipPos(v.vertex);
+                o.worldNormal = normalize(mul(v.normal, (float3x3)unity_WorldToObject));
+                return o;
+            }
+            //在片元着色器中计算漫反射光照模型
+            fixed4 frag(v2f i) : SV_TARGET {
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+                fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
+                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(i.worldNormal, worldLightDir));
+                fixed3 color = ambient + diffuse;
+                return fixed4(color, 1.0);
+            }
+            ENDCG
+        }
+    }
+    FallBack "Diffuse"
+}
+
+```
