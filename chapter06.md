@@ -240,3 +240,69 @@ $$ c_{diffuse}=(c_{light} \cdot m_{diffuse})(0.5(\hat n \cdot I)+0.5) $$
 通过这样的方式，我们可以把 $\hat n \cdot I$ 的结果范围从\[-1, 1\]映射到\[0, 1\]范围内。也就是说，对于模型的背光面，在原兰伯特光照模型中点积结果将映射到同一个值，即0值处；而在半兰伯特模型中，背光面也可以有明暗变化，不同的点积结果将会映射到不同的值上。
 
 需要注意的是，半兰伯是没有任何物理依据的，它仅仅是一个视觉加强技术。
+
+对 6.4.2 小节中得到的代码做一些修改就可以实现半兰伯特漫反射光照效果。
+
+1. 仍然使用6.4.1小节中使用的场景。
+2. 新建一个材质。在本书资源中，该材质名为HalfLambertMat。
+3. 新建一个Unity Shader。在本书资源中，该Shader名为Chapter6-HalfLambert。把新的Shader赋给第2步中创建的材质。
+4. 把第2步中创建的材质赋给胶囊体。
+
+复制DiffusePixelLevel的Shader代码，并修改片元着色器中计算漫反射光照的部分，具体代码如下：
+
+```shaderlab
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/HalfLambert" {
+    Properties {
+        _Diffuse ("Diffuse", Color) = (1, 1, 1, 1)
+    }
+    SubShader {
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "Lighting.cginc"
+
+            fixed4 _Diffuse;
+
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+            };
+            //顶点着色器不需要计算光照模型，只需要把世界空间下的法线传递给片元着色器即可。
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = UnityObjectToClipPos(v.vertex);
+                o.worldNormal = normalize(mul(v.normal, (float3x3)unity_WorldToObject));
+                return o;
+            }
+            //在片元着色器中计算漫反射光照模型
+            fixed4 frag(v2f i) : SV_TARGET {
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+                fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
+                fixed halfLambert = 0.5 * dot(i.worldNormal, worldLightDir) + 0.5;
+                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * halfLambert;
+                fixed3 color = ambient + diffuse;
+                return fixed4(color, 1.0);
+            }
+            ENDCG
+        }
+    }
+    FallBack "Diffuse"
+}
+
+```
+
+图6.8给出了逐顶点漫反射光照、逐像素漫反射光照和半兰伯特光照的对比效果。
+
+![逐顶点漫反射光照、逐像素漫反射光照和半兰伯特光照的对比](images/chapter06_half_lambert_compare.png)
+
+图 6.8 逐顶点漫反射光照、逐像素漫反射光照和半兰伯特光照的对比
