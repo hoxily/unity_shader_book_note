@@ -306,3 +306,26 @@ Shader "Custom/HalfLambert" {
 ![逐顶点漫反射光照、逐像素漫反射光照和半兰伯特光照的对比](images/chapter06_half_lambert_compare.png)
 
 图 6.8 逐顶点漫反射光照、逐像素漫反射光照和半兰伯特光照的对比
+
+# 6.5 在Unity Shader中实现高光反射光照模型
+
+在6.2.4节中，我们给出了基本光照模型中高光反射部分的计算公式：
+
+$$ c_{specular} = (c_{light} \cdot m_{specular})\max(0, \hat v \cdot r)^{m_{gloss}} $$
+
+从公式可以看出，要计算高光反射需要知道4个参数：入射光线的颜色和强度$c_{light}$，材质的高光反射系数$m_{specular}$，视角方向$\hat v$以及反射方向$r$。其中，反射方向$r$可以由表面法线$\hat n$和光源方向$\hat I$计算而得：
+
+$$ r = 2(\hat n \cdot \hat I)\hat n - \hat I $$
+
+上述公式很简单，更幸运的是，CG提供了计算反射方向的函数 reflect。
+
+函数：reflect(i, n)
+
+参数：i，入射方向；n，法线方向。可以是float、float2、float3等类型。
+
+描述：当给定入射方向i和法线方向n时，reflect函数可以返回反射方向。图6.9给出了参数和返回值之间的关系。
+
+![图 6.9 CG的reflect函数](images/chapter06_reflect_function_in_cg.png)
+
+图 6.9 CG的reflect函数
+
