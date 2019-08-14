@@ -315,13 +315,13 @@ $$ c_{specular} = (c_{light} \cdot m_{specular})\max(0, \hat v \cdot r)^{m_{glos
 
 从公式可以看出，要计算高光反射需要知道4个参数：入射光线的颜色和强度$c_{light}$，材质的高光反射系数$m_{specular}$，视角方向$\hat v$以及反射方向$r$。其中，反射方向$r$可以由表面法线$\hat n$和光源方向$\hat I$计算而得：
 
-$$ r = 2(\hat n \cdot \hat I)\hat n - \hat I $$
+$$ r = \hat I - 2(\hat n \cdot \hat I)\hat n $$
 
 上述公式很简单，更幸运的是，CG提供了计算反射方向的函数 reflect。
 
 函数：reflect(i, n)
 
-参数：i，入射方向；n，法线方向。可以是float、float2、float3等类型。
+参数：i，入射向量；n，法线向量。可以是float、float2、float3等类型。
 
 描述：当给定入射方向i和法线方向n时，reflect函数可以返回反射方向。图6.9给出了参数和返回值之间的关系。
 
@@ -329,3 +329,6 @@ $$ r = 2(\hat n \cdot \hat I)\hat n - \hat I $$
 
 图 6.9 CG的reflect函数
 
+公式推导可以参考blog：[求反射向量](https://www.cnblogs.com/graphics/archive/2013/02/21/2920627.html)
+
+小提示：这里的入射与反射都是针对表面交点来说的。所以入射光线是从光源方向指向表面交点。反射光线则是从表面交点指向外部。
