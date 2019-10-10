@@ -221,3 +221,6 @@ OpenGL和DirectX的屏幕坐标系差异。对于一张512*256大小的图像，
 
 下面举例两个最基本的测试：深度测试和模板测试。
 
+![简化的模板测试流程图](images/chapter02_stencil_test_flow.svg)
+
+简化的模板测试流程
