@@ -247,4 +247,4 @@ OpenGL和DirectX的屏幕坐标系差异。对于一张512*256大小的图像，
 
 混合操作是高度可配置的。开发者可以选择开启、关闭混合功能。混合很像photoshop中对图层的操作：每一层图层可以选择混合模式，混合模式决定了该图层和下层图层的混合结果，最终看到的结果就是混合后的图片。
 
-参写[Adobe Photoshop中的混合模式说明](https://helpx.adobe.com/cn/photoshop/using/blending-modes.html)。
+参见[Adobe Photoshop中的混合模式说明](https://helpx.adobe.com/cn/photoshop/using/blending-modes.html)。
