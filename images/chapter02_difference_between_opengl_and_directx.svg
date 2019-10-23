@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="167.27412mm"
-   height="65.051949mm"
-   viewBox="0 0 167.27412 65.051949"
+   width="167.71666mm"
+   height="65.587502mm"
+   viewBox="0 0 167.71666 65.587502"
    version="1.1"
    id="svg1147"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
@@ -23,23 +23,24 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="502.07657"
-     inkscape:cy="-30.399199"
+     inkscape:cx="502.02145"
+     inkscape:cy="-28.454324"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     fit-margin-top="5"
-     fit-margin-left="5"
-     fit-margin-bottom="5"
-     fit-margin-right="5"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-bottom="0"
+     fit-margin-right="0"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="true" />
   <metadata
      id="metadata1144">
     <rdf:RDF>
@@ -56,7 +57,14 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-30.241263,-118.0716)">
+     transform="translate(-30.255846,-118.05063)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#030303;stroke-width:0.5;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1025"
+       width="167.21666"
+       height="65.087502"
+       x="30.505846"
+       y="118.30063" />
     <rect
        style="fill:none;fill-opacity:1;stroke:#030303;stroke-width:0.5;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect1692"
