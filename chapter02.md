@@ -347,3 +347,22 @@ CPU通过图像编程接口向命令缓冲区中添加命令，而GPU从中读�
 OpenGL | 1.5 | 2.0
 OpenGL ES | 1.1 | 2.0
 DirectX | 7.0 | 8.0
+
+为了继续提供固定管线的接口抽象，一些显卡驱动的开发者们使用了更加通用的着色架构，即使用可编程管线来模拟固定管线。在提供可编程渲染管线的同时，让老代码能继续使用使用固定管线进行渲染。例如OpenGL 2.0依靠可编程管线功能模仿固定管线的处理过程。
+
+## 2.5 Shader是什么的总结
+
+具体来说，Shader就是：
+
+- GPU流水线上一些可高度编程的阶段。由着色器编译出来的最终代码是会在GPU上运行的。对于固定管线来说，着色器有时等同于一些特定的渲染设置。
+- 有一些特定类型的着色器，如顶点着色器、片元着色器等。
+- 依靠着色器可以控制流水线中的渲染细节。例如用顶点着色器来进行顶点变换以及传递数据。用片元着色器来进行逐像素的渲染。
+
+Unity作为一个出色的编辑工具，为开发人员提供了一个既可以方便编写着色器，同时又可以设置渲染状态的地方：Unity Shader。
+
+## 2.6 扩展阅读
+
+- 实时渲染（Akenine-Moller T, Haines E, Hoffman N. Real-time rendering. CRC Press, 2008）。Real-time rendering 现已出到第4版（2018）版。
+- Wloka M. Batch, Batch, Batch: what does it really mean? Presentation at GDC 2003. [PPT原文链接](http://www.nvidia.com/docs/io/8230/batchbatchbatch.ppt) [中文解读](https://blog.csdn.net/i_dovelemon/article/details/51705167)
+- [OpenGL rendering pipeline overview. The rendering pipeline is the sequence of steps that OpenGL takes when rendering objects. This overview will provide a high-level description of the steps in the pipeline.](https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview)
+- [Direct3D 11 graphics pipeline overview.](https://docs.microsoft.com/zh-cn/windows/win32/direct3d11/overviews-direct3d-11-graphics-pipeline)
