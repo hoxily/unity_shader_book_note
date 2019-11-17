@@ -27,3 +27,68 @@ unity shader是Unity提供的高层级的渲染抽象层。通过这种方式让
 ![图3.6](images/chapter03_difference_between_unity_shader_and_raw_graphics_api.svg)
 
 左图为没有使用unity shader的情况。开发者需要和很多文件和设置打交道。右图为在unity shader的帮助下，开发者只需要使用shaderlab来编写unity shader即可完成所有的工作。
+
+在unity中，所有的unity shader都是使用shaderlab来编写的。shaderlab是unity提供的一种说明性语言。它使用了一些嵌套在花括号内部的语法来描述一个unity shader文件的结构。这些结构包含了许多渲染所需要的数据。从设计上来说，shaderlab类似于cgfx和direct3d effects语言。它们都定义了要显示一个材质所需的所有东西，而不仅仅是着色器代码。
+
+一个unity shader的基础结构如下所示：
+
+```shaderlab
+    Shader "ShaderName" {
+        Properties {
+            //属性定义
+        }
+        SubShader {
+            //显卡A使用的子着色器
+        }
+        SubShader {
+            //显卡B使用的子着色器
+        }
+        Fallback "VertexLit"
+    }
+```
+
+unity会在背后根据使用的平台把这些结构编译成真正的代码和shader文件，而开发者只需要和unity shader打交道即可。
+
+## 3.3 Unity shader的结构
+
+### 3.3.1 shader的名字
+
+shader的名字可以含有斜杠，用以分类。
+
+```shaderlab
+    Shader "Custom/MyShader" {
+
+    }
+```
+
+### 3.3.2 Properties属性定义
+
+Properties语法如下：
+
+```shaderlab
+    Properties {
+        propertyName ("displayName", PropertyType) = DefaultValue
+    }
+```
+
+- propertyName通常以下划线开头，用于在shader代码中访问。
+- displayName是用于在材质面板上显示的名称。
+- 属性有类型。
+- 属性可以设定默认值。
+
+表3.1 Properties语句支持的属性类型
+
+属性类型 | 默认值语法 | 例子
+:-: | :-: | :-: |
+Int | number | _Int("Int", Int) = 2
+Float | number | _Float("Float", Float) = 1.5
+Range | number | _Range("Range", Range(0.0, 5.0)) = 3.0
+Color | (r, g, b, a) | _Color("Color", Color) = (1.0, 1.0, 1.0, 1.0)
+Vector | (x, y, z, w) | _Vector("Vector", Vector) = (1.0, 2.0, -3.0, 4.0)
+2D | "默认纹理名称" {} | _2D("2D", 2D) = "" {}
+2D | "默认纹理名称" {} | _2D("2D", 2D) = "white" {}
+2D | "默认纹理名称" {} | _2D("2D", 2D) = "black" {}
+2D | "默认纹理名称" {} | _2D("2D", 2D) = "gray" {}
+2D | "默认纹理名称" {} | _2D("2D", 2D) = "bump" {}
+Cube | "默认纹理名称" {} | _Cube("Cube", Cube) = "white" {}
+3D | "默认纹理名称" {} | _3D("3D", 3D) = "black" {}
