@@ -79,7 +79,7 @@ Properties语法如下：
 表3.1 Properties语句支持的属性类型
 
 属性类型 | 默认值语法 | 例子
-:-: | :-: | :-: |
+:- | :- | :- |
 Int | number | _Int("Int", Int) = 2
 Float | number | _Float("Float", Float) = 1.5
 Range | number | _Range("Range", Range(0.0, 5.0)) = 3.0
@@ -92,3 +92,119 @@ Vector | (x, y, z, w) | _Vector("Vector", Vector) = (1.0, 2.0, -3.0, 4.0)
 2D | "默认纹理名称" {} | _2D("2D", 2D) = "bump" {}
 Cube | "默认纹理名称" {} | _Cube("Cube", Cube) = "white" {}
 3D | "默认纹理名称" {} | _3D("3D", 3D) = "black" {}
+
+下面的代码给出了一个展示所有属性类型的例子：
+
+```shaderlab
+Shader "Chapter03/ShaderPropertyExample" {
+    Properties {
+        //数值以及滑动条
+        _Int("Int", Int) = 2
+        _Float("Float", Float) = 1.5
+        _Range("Range", Range(0.0, 5.0)) = 3.0
+        //颜色和向量
+        _Color("Color", Color) = (1.0, 1.0, 1.0, 1.0)
+        _Vector("Vector", Vector) = (1.0, 2.0, -3.0, 4.0)
+        //纹理
+        _2D("2D", 2D) = "" {}
+        _2D_2("2D_2", 2D) = "white" {}
+        _2D_3("2D_3", 2D) = "black" {}
+        _2D_4("2D_4", 2D) = "gray" {}
+        _2D_5("2D_5", 2D) = "bump" {}
+        _Cube("Cube", Cube) = "white" {}
+        _3D("3D", 3D) = "black" {}
+    }
+
+    Fallback "Diffuse"
+}
+```
+
+下图给出了上述代码在材面板中显示的结果。
+
+![图3.8](images/chapter03_shader_property_example.png)
+
+图3.8 不同属性类型在材质面板中显示的结果。
+
+看起来纹理类型的默认纹理名称并不能在材质面板中体现。在运行时才体现。
+
+测试代码如下：
+
+```shaderlab
+//这段代码修改自Unlit模板。
+Shader "Chapter03/TestDefaultTextureName"
+{
+    Properties
+    {
+        _MainTex ("Texture", 2D) = "white" {}
+        _NormalTex ("NormalMap", 2D) = "bump" {}
+    }
+    SubShader
+    {
+        Tags { "RenderType"="Opaque" }
+        LOD 100
+
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            // make fog work
+            #pragma multi_compile_fog
+
+            #include "UnityCG.cginc"
+
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            struct v2f
+            {
+                float2 uv : TEXCOORD0;
+                UNITY_FOG_COORDS(1)
+                float4 vertex : SV_POSITION;
+            };
+
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+
+            sampler2D _NormalTex;
+            float4 _NormalTex_ST;
+
+            v2f vert (appdata v)
+            {
+                v2f o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                UNITY_TRANSFER_FOG(o,o.vertex);
+                return o;
+            }
+
+            fixed4 frag (v2f i) : SV_Target
+            {
+                // sample the texture
+                fixed4 col = fixed4(1, 1, 1, 1);
+                if (i.uv.x > 0.5)
+                {
+                    col = tex2D(_MainTex, i.uv);
+                }
+                else
+                {
+                    col = tex2D(_NormalTex, i.uv);
+                }
+                // apply fog
+                UNITY_APPLY_FOG(i.fogCoord, col);
+                return col;
+            }
+            ENDCG
+        }
+    }
+}
+```
+
+其材质面板的预览效果如下：
+
+![图3.8.2 材质的预览面板上虽然NormalMap也显示着None(Texture)，但是下方的预览效果显示一半的蓝色和一半的白色。](images/chapter03_bump_default_texture.png)
+
+可以看出来，默认的bump纹理对法线方向没有扰动。参见 [为什么法线贴图偏蓝色？](https://blog.csdn.net/taoqilin/article/details/49976927) 中对法线贴图的解释。
