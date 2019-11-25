@@ -208,3 +208,5 @@ Shader "Chapter03/TestDefaultTextureName"
 ![图3.8.2 材质的预览面板上虽然NormalMap也显示着None(Texture)，但是下方的预览效果显示一半的蓝色和一半的白色。](images/chapter03_bump_default_texture.png)
 
 可以看出来，默认的bump纹理对法线方向没有扰动。参见 [为什么法线贴图偏蓝色？](https://blog.csdn.net/taoqilin/article/details/49976927) 中对法线贴图的解释。
+
+Unity允许我们重载默认的材质编辑面板，以提供更多自定义的数据类型。参见官方手册 [Custom Shader GUI](https://docs.unity3d.com/Manual/SL-CustomShaderGUI.html) 这篇文章。
