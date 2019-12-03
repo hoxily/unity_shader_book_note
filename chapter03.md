@@ -210,3 +210,28 @@ Shader "Chapter03/TestDefaultTextureName"
 可以看出来，默认的bump纹理对法线方向没有扰动。参见 [为什么法线贴图偏蓝色？](https://blog.csdn.net/taoqilin/article/details/49976927) 中对法线贴图的解释。
 
 Unity允许我们重载默认的材质编辑面板，以提供更多自定义的数据类型。参见官方手册 [Custom Shader GUI](https://docs.unity3d.com/Manual/SL-CustomShaderGUI.html) 这篇文章。
+
+为了在shader中可以访问到这些属性，需要在CG代码片中定义和这些属性类型相匹配的变量。即使不在Properties块中声明这些属性，也可以直接在CG代码片中定义变量。此时可以通过脚本向shader传递这些属性值。
+
+Properties块的作用仅仅是为了让这些属性可以出现在材质面板中。
+
+### 3.3.3 SubShader
+
+每个unity shader文件包含至少一个SubShader块（SubShader的数量 $\ge$ 1）。当unity需要加载这个shader时，它会扫描所有的SubShader，然后选择第一个能够在目标平台上运行的SubShader。如果都不支持的话，它就会使用Fallback指定的shader。
+
+不同的显卡具有不同的能力。一些旧的显卡仅能支持一定数目的操作指令，而一些更高级的显卡可以支持更多的指令。我们就可以使用SubShader功能，在旧的显卡上使用计算复杂度较低的着色器，而在高级的显卡上使用计算复杂度较高的着色器，以便提供更出色的画面。
+
+SubShader的定义通常如下：
+
+```shaderlab
+SubShader {
+    //Tags
+    Tags { "TagName" = "Value" ...}
+    
+    //RenderSetup
+    Cull Back | Front | Off
+    ZTest Less | Greater | LEqual | GEqual | Equal | NotEqual | Always
+    ZWrite On | Off
+    Blend SrcFactor DstFactor
+}
+```
