@@ -229,9 +229,29 @@ SubShader {
     Tags { "TagName" = "Value" ...}
     
     //RenderSetup
-    Cull Back | Front | Off
-    ZTest Less | Greater | LEqual | GEqual | Equal | NotEqual | Always
-    ZWrite On | Off
+    Cull Back
+    ZTest Less
+    ZWrite On
     Blend SrcFactor DstFactor
+
+    Pass {
+
+    }
+    //其他Pass
 }
 ```
+
+SubShader定义了一系列Pass以及可选的状态和标签设置。每个Pass定义了一次完整的渲染流程。如果Pass数量过多，会造成渲染性能下降。
+状态与标签也可以在Pass内部声明。
+在SubShader级别声明的状态，将会应用到其内部的所有Pass。
+
+#### 3.3.3.1 状态设置（RenderSetup）
+
+表3.2 常见的渲染状态设置指令
+
+状态名称 | 设置指令 | 作用
+:- | :- | :-
+Cull | Cull Off \| Back \| Front | 剔除模式：关闭、剔除背面、剔除正面
+ZTest | ZTest Less \| Greater \| LEqual \| GEqual \| Equal \| NotEqual \| Always | 深度测试时使用的函数
+ZWrite | ZWrite On \| Off | 开启、关闭深度写入
+Blend | Blend SrcFactor DstFactor | 开启并且设置混合模式
