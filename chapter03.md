@@ -255,3 +255,17 @@ Cull | Cull Off \| Back \| Front | 剔除模式：关闭、剔除背面、剔除
 ZTest | ZTest Less \| Greater \| LEqual \| GEqual \| Equal \| NotEqual \| Always | 深度测试时使用的函数
 ZWrite | ZWrite On \| Off | 开启、关闭深度写入
 Blend | Blend SrcFactor DstFactor | 开启并且设置混合模式
+
+在Pass内部可以声明自己的渲染状态设置，以覆盖SubShader声明的渲染状态设置。
+
+#### 3.3.3.2 SubShader的Tags
+
+SubShader的标签是一个键值对，两者都是字符串类型。
+
+表3.3 SubShader的标签类型
+
+标签类型 | 说明 | 例子
+:- | :- | :-
+Queue | 控制渲染顺序，指定该物体属于哪一个渲染队列，通过这种方式可以保证所有的透明物体可以在所有不透明物体后面被渲染。也可以自定义渲染队列来控制物体的渲染顺序。 | Tags { "Queue" = "Transparent" }
+RenderType | 对着色器进行分类。这可以被用于着色器替换功能（Shader Replacement）。 | Tags { "RenderType" = "Opaque" }
+DisableBatching | 某些SubShader在使用批处理功能时会出现问题。这时可以通过该标签来直接指明是否对该SubShader使用批处理。 | Tags { "DisableBatching" = "True" }
