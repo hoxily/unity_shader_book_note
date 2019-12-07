@@ -264,8 +264,18 @@ SubShader的标签是一个键值对，两者都是字符串类型。
 
 表3.3 SubShader的标签类型
 
-标签类型 | 说明 | 例子
-:- | :- | :-
-Queue | 控制渲染顺序，指定该物体属于哪一个渲染队列，通过这种方式可以保证所有的透明物体可以在所有不透明物体后面被渲染。也可以自定义渲染队列来控制物体的渲染顺序。 | Tags { "Queue" = "Transparent" }
-RenderType | 对着色器进行分类。这可以被用于着色器替换功能（Shader Replacement）。 | Tags { "RenderType" = "Opaque" }
-DisableBatching | 某些SubShader在使用批处理功能时会出现问题。这时可以通过该标签来直接指明是否对该SubShader使用批处理。 | Tags { "DisableBatching" = "True" }
+标签类型 | 说明 | 例子 | 不指定该标签时的默认值
+:- | :- | :- | :-
+Queue | 控制渲染顺序，指定该物体属于哪一个渲染队列，通过这种方式可以保证所有的透明物体可以在所有不透明物体后面被渲染。也可以自定义渲染队列来控制物体的渲染顺序。 | Tags { "Queue" = "Transparent" } | /
+RenderType | 对着色器进行分类。这可以被用于着色器替换功能（Shader Replacement）。 | Tags { "RenderType" = "Opaque" } | /
+DisableBatching | 是否禁用批处理。某些SubShader在使用批处理功能时会出现问题，这时可以通过该标签禁用批处理。 | Tags { "DisableBatching" = "True" } | False
+ForceNoShadowCasting | 是否禁用阴影投射 | Tags { "ForceNoShadowCasting" = "True" } | False
+IgnoreProjector | 是否忽略Projector的影响。通常用于半透明物体 | Tags { "IgnoreProjector" = "True" } | False
+CanUseSpriteAtlas | 是否支持精灵图集。如果某个图片精灵被设置为打包进图集中，那么当此精灵所指定Shader中此标签设置为False时将会无法正常工作，Unity将会给出警告 | Tags { "CanUseSpriteAtlas" = "False" } | True
+PreviewType | 预览类型。指示材质面板将如何预览该材质。 | Tags { "Preview" = "Plane" } | Sphere（球体）
+
+更多详细解释，参见 [零基础入门Unity Shader（九）- SubShader Tags](https://zhuanlan.zhihu.com/p/51080323)
+
+以上表格里提到的标签仅限于在SubShader下使用。不能在Pass中声明。
+
+#### 3.3.3.3 Pass
