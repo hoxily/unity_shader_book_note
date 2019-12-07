@@ -279,3 +279,55 @@ PreviewType | 预览类型。指示材质面板将如何预览该材质。 | Tag
 以上表格里提到的标签仅限于在SubShader下使用。不能在Pass中声明。
 
 #### 3.3.3.3 Pass
+
+```shaderlab
+Pass {
+    [Name]
+    [Tags]
+    [RenderSetup]
+    //其他代码
+}
+```
+
+通过给Pass定义名称，可以使用UsePass指令来被其他shader使用。由于unity内部会把pass名称转换成大写形式，所以在使用UsePass指令时需要使用大写形式的名字。
+
+```shaderlab
+//如果定义了Pass的名字
+Pass {
+    Name "MyPassName"
+    //...
+}
+
+//那么可以在另一个shader中引用上面定义Pass
+Pass {
+    UsePass "ShaderName/MYPASSNAME"
+}
+```
+
+（疑问：上面的UsePass指令有可能遇到含有斜线分割符的Shader名称，可能造成Shader名称与Pass名称冲突的情况。）
+
+Pass除了支持SubShader的状态设置，还支持固定管线的着色器命令。
+
+Pass可以设置标签。这些标签不同于SubShader的标签，它们用于指导渲染引擎如何渲染物体。
+
+表3.4 Pass的标签类型
+
+标签类型 | 说明 | 例子 | 不指定该标签时的默认值
+:- | :- | :- | :-
+LightMode | 定义该Pass在渲染流水线中的角色 | Tags { "LightMode" = "ForwardBase" } | /
+RequireOptions | 满足指定义的条件时才渲染该Pass，它的值是一个由空格分隔的字符串。 | Tags { "RequireOptions" = "SoftVegetation" } | /
+
+unity还支持一些特殊的Pass。
+
+- UsePass，用于复用其他shader里的命名Pass；
+- GrabPass，该Pass抓取屏幕并将结果存储在一张纹理中，用于后续Pass处理。
+
+### 3.3.4 Fallback
+
+紧跟在所有的SubShader之后的可以是一个Fallback指令。如果上面所有的SubShader在这块显卡上都不能运行，那么就使用这个回退的shader吧。
+
+```shaderlab
+Fallback "FallbackShaderName"
+//或关闭Fallback
+Fallback Off
+```
