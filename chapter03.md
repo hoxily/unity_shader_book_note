@@ -324,10 +324,14 @@ unity还支持一些特殊的Pass。
 
 ### 3.3.4 Fallback
 
-紧跟在所有的SubShader之后的可以是一个Fallback指令。如果上面所有的SubShader在这块显卡上都不能运行，那么就使用这个回退的shader吧。
+紧跟在所有的SubShader之后的可以是一个Fallback指令。如果上面所有的SubShader在这块显卡上都不能运行，那么就使用这个回退的shader。
 
 ```shaderlab
 Fallback "FallbackShaderName"
 //或关闭Fallback
 Fallback Off
 ```
+
+Fallback会影响阴影的投射。在渲染阴影纹理时，Unity会在每个unity shader中寻找一个阴影投射的Pass。通常情况下，我们不需要自己专门实现一个Pass，这是因为Fallback使用的内置shader中包含了这样一个通用的Pass。因此，为每个unity shader正确设置Fallback是非常重要的。
+
+## 3.4
