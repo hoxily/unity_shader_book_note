@@ -272,7 +272,7 @@ DisableBatching | 是否禁用批处理。某些SubShader在使用批处理功�
 ForceNoShadowCasting | 是否禁用阴影投射 | Tags { "ForceNoShadowCasting" = "True" } | False
 IgnoreProjector | 是否忽略Projector的影响。通常用于半透明物体 | Tags { "IgnoreProjector" = "True" } | False
 CanUseSpriteAtlas | 是否支持精灵图集。如果某个图片精灵被设置为打包进图集中，那么当此精灵所指定Shader中此标签设置为False时将会无法正常工作，Unity将会给出警告 | Tags { "CanUseSpriteAtlas" = "False" } | True
-PreviewType | 预览类型。指示材质面板将如何预览该材质。 | Tags { "Preview" = "Plane" } | Sphere（球体）
+PreviewType | 预览类型。指示材质面板将如何预览该材质。 | Tags { "PreviewType" = "Plane" } | Sphere（球体）
 
 更多详细解释，参见 [零基础入门Unity Shader（九）- SubShader Tags](https://zhuanlan.zhihu.com/p/51080323)
 
@@ -336,3 +336,28 @@ Fallback会影响阴影的投射。在渲染阴影纹理时，Unity会在每个u
 
 ## 3.4 Unity Shader 的形式
 
+在Unity中，可以使用3种形式来编写unity shader——表面着色器、顶点片元着色器、固定函数着色器。
+
+### 3.4.1 表面着色器（Surface Shader）
+
+当给unity提供一个表面着色器时，它在背后仍然是转换成对应的顶点片元着色器。表面着色器是unity对顶点片元着色器更高一层的抽象。其优点是unity代为处理了很多光照细节，使得我们不需要再操心。
+
+一个非常简单的表面着色器示例代码如下所示：
+
+```shaderlab
+Shader "Custom/Simple Surface Shader" {
+    SubShader {
+        Tags { "RenderType" = "Opaque" }
+        CGPROGRAM
+        #pragma surface surf Lambert
+        struct Input {
+            float4 color: COLOR;
+        };
+        void surf(Input IN, inout SurfaceOutput o) {
+            o.Albedo = 1;
+        }
+        ENDCG
+    }
+    Fallback "Diffuse"
+}
+```
