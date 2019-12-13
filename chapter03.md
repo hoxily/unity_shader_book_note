@@ -361,3 +361,34 @@ Shader "Custom/Simple Surface Shader" {
     Fallback "Diffuse"
 }
 ```
+
+表面着色器被定义在SubShader块，而非Pass块中。原因是，表面着色器不需要关心使用多少个Pass、每个Pass如何渲染等问题，unity会在背后做好这些事情。
+
+### 3.4.2 顶点片元着色器
+
+顶点片元着色器更加复杂，但灵活性更高。
+
+一个非常简单的顶点片元着色器示例如下所示：
+
+```shaderlab
+Shader "Custom/Simple Vertex Fragment Shader" {
+    SubShader {
+        Pass {
+            CGPROGRAM
+            
+            #pragma vertex vert
+            #pragma fragment frag
+
+            float4 vert(float4 v: POSITION): SV_POSITION {
+                return mul(UNITY_MATRIX_MVP, v);
+            }
+
+            fixed4 frag(): SV_Target {
+                return fixed4(1, 0, 0, 1)
+            }
+
+            ENDCG
+        }
+    }
+}
+```
