@@ -392,3 +392,23 @@ Shader "Custom/Simple Vertex Fragment Shader" {
     }
 }
 ```
+
+### 3.4.3 固定函数着色器
+
+一个非常简单的固定函数着色器示例如下：
+
+```shaderlab
+Shader "Custom/Simple Fixed Function Shader" {
+    Properties {
+        _Color("Main Color", Color) = (1, 0.5, 0.5, 1)
+    }
+    SubShader {
+        Pass {
+            Material {
+                Diffuse [_Color]
+            }
+            Lighting On
+        }
+    }
+}
+```
