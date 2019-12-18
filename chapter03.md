@@ -421,3 +421,11 @@ Shader "Custom/Simple Fixed Function Shader" {
 - 与各种光源打交道时，使用表面着色器。
 - 如果使用的光源数目非常少时，例如只有一个平行光，那么使用顶点、片元着色器。
 - 如果有自定义渲染效果的需求，那么选择顶点片元着色器。
+
+## 3.6 查看Unity Shader编译后的代码
+
+Unity支持在导入设置面板上查看unity shader编译到目标平台后的代码，可用于Debug或优化。如图3.9所示。
+
+![Compile and show code](images/chapter03_shader_importer_compile_and_show_code.png)
+
+当发布游戏时，数据文件中只包含目标平台所需要的编译代码，不需要的代码部分就会被移除。
