@@ -150,3 +150,56 @@ $$
 
 点积满足交换律，即 $\vec a \cdot \vec b = \vec b \cdot \vec a$
 
+点积的一个几何意义就是投影（projection）。通俗的解释就是，有一个光源，它发出的光线垂直于 $\hat{\vec a}$ 方向，那么$\vec b$在$\hat{\vec a}$方向上的投影就是$\vec b$在$\hat{\vec a}$方向上的影子。如下图所示。
+
+![图4.22 矢量b在单位矢量a方向上的投影](images/chapter04_vector_b_project_on_vector_a.png)
+
+图4.22 矢量$\vec b$在单位矢量$\hat{\vec a}$方向上的投影
+
+投影结果的正负号与两个向量的夹角有关。
+
+- 当夹角大于90°时，结果小于0；
+- 当夹角为90°时，结果为0；
+- 当夹角小于90°时，结果大于0；
+
+参见图4.23.
+
+![图4.23 点积的符号](images/chapter04_sign_of_dot_product.png)
+
+性质1：点积可结合标量乘法
+
+$$
+(k \vec a) \cdot \vec b = \vec a \cdot (k \vec b) = k(\vec a \cdot \vec b)
+$$
+
+性质2：点积与矢量的加法和减法结合
+
+$$
+\vec a \cdot (\vec b + \vec c) = \vec a \cdot \vec b + \vec a \cdot \vec c
+$$
+
+性质3：一个矢量和本身进行点积的结果，是该矢量的模的平方。
+
+$$
+\vec v \cdot \vec v = x^2 + y^2 + z^2 = |\vec v|^2
+$$
+
+$$
+\vec a \cdot \vec b = |\vec a||\vec b|\cos \theta，\theta为两向量的夹角
+$$
+
+#### 4.2.3.6 矢量的叉积
+
+矢量叉积的结果仍是一个矢量。
+
+$$
+\vec a \times \vec b = (a_yb_z - a_zb_y, a_zb_x - a_xb_z, a_xb_y - a_yb_x)
+$$
+
+![辅助记忆表格](images/chapter04_cross_product_tip_table.png)
+
+辅助记忆表格，结果位于第三个分量。
+
+![辅助记忆三棱柱](images/chapter04_cross_product_tip_triangular_prism.png)
+
+辅助记忆三棱柱，某个面的计算结果对应于对面棱的分量。
