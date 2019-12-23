@@ -141,3 +141,12 @@ $$
 $$
 \hat{\vec v} = \frac{\vec v}{|\vec v|}, 其中 \vec v 是非零矢量
 $$
+
+#### 4.3.2.5 矢量的点积
+
+$$
+\vec a \cdot \vec b = (a_x, a_y, a_z) \cdot (b_x, b_y, b_z) = a_xb_x + a_yb_y + a_zb_z
+$$
+
+点积满足交换律，即 $\vec a \cdot \vec b = \vec b \cdot \vec a$
+
