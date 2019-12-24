@@ -203,3 +203,38 @@ $$
 ![辅助记忆三棱柱](images/chapter04_cross_product_tip_triangular_prism.png)
 
 辅助记忆三棱柱，某个面的计算结果对应于对面棱的分量。
+
+叉积不满足交换律，即 $\vec a \times \vec b \neq \vec b \times \vec a$。
+叉积满足反交换律，即 $\vec a \times \vec b = -(\vec b \times \vec a)$。
+叉积不满足结合律，即 $(\vec a \times \vec b) \times \vec c \neq \vec a \times (\vec b \times \vec c)$。
+
+对两个矢量进行叉积的结果会得到一个同时垂直于这两个矢量的新矢量。
+
+$|\vec a \times \vec b| = |\vec a||\vec b|\sin \theta , 其中 \theta 为两向量的夹角。$
+
+![图4.26 使用矢量a与矢量b构建一个平行四边形](images/chapter04_area_of_2_vectors.png)
+
+这个平行四边形的面积如下：
+
+$$
+A = |\vec b|h = |\vec b|(|vec a|\sin \theta) = |\vec a||\vec b|\sin \theta = |\vec a \times \vec b|
+$$
+
+![图4.27 分别在左手坐标系和右手坐标系下的叉积结果](images/chapter04_cross_product_in_left_right_handedness_coordinate_system.png)
+
+![图4.28 使用右手法则判断右手坐标系中两向量的叉积的方向](images/chapter04_use_right_headedness.png)
+
+### 4.3.3 练习题
+
+1. 是非题
+    1. 一个矢量的大小不重要，我们只需要在正确的位置把它画出来就可以了。（错误，大小很重要。另外矢量没有位置，可以随意把它放在空间的任何位置。）
+    2. 点可以认为是位置矢量，这是通过把矢量的尾固定在原点得到的。（正确）
+    3. 选择左手坐标系还是右手坐标系很重要，因为这会影响叉积的计算。（错误。无影响。在把数字转换成视学表现的时候，选择不同的坐标系可能会得到不同的结果。）
+2. 计算题
+    1. $|(2, 7, 3)|$ （结果=$\sqrt{2^2 + 7^2 + 3^2} = \sqrt{62}$）
+    2. $2.5(5, 4, 10)$（结果=$(12.5, 10, 25)$）
+    3. $\frac{(3,4)}{2}$（结果=$(1.5, 2)$）
+    4. 对(5, 12)进行归一化。（$\frac{(5, 12)}{|(5, 12)|} = \frac{(5, 12)}{13}= (\frac{5}{13}, \frac{12}{13})$）
+    5. 对(1,1,1)进行归一化。（$\frac{(1,1,1)}{|(1,1,1)|} = \frac{(1,1,1)}{\sqrt{3}} = (\frac{\sqrt 3}{3},\frac{\sqrt 3}{3},\frac{\sqrt 3}{3})$）
+    6. (7,4)+(3,5)（结果=$(10,9)$）
+    7. (9,4,13)-(15,3,11)（结果=$(-6,1,2)$）
