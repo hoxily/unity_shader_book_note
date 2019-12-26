@@ -258,3 +258,20 @@ $$
 ![图4.29](images/chapter04_check_triangle_front_or_back_by_cross_product.png)
 
 答：取向量 $\vec a = (\vec p_2 - \vec p_1), \vec b = (\vec p_3 - \vec p_1)$，求$\vec a \times \vec b$的结果。如果叉积结果向量的z分量大于0，说明是顺时针。如果小于0，说明是逆时针。如果为0，说明这三个点共线，无法构成三角形。
+
+## 4.4 矩阵
+
+一个$3 \times 3$的矩阵，可以写成如下形式：
+
+$$
+\boldsymbol{M} =
+\left[
+\begin{matrix}
+   m_{11} & m_{12} & m_{13} \\
+   m_{21} & m_{22} & m_{23} \\
+   m_{31} & m_{32} & m_{33}
+\end{matrix}
+\right]
+$$
+
+$m_{ij}$表明了这个元素在矩阵$\boldsymbol{M}$的第$i$行、第$j$列。
