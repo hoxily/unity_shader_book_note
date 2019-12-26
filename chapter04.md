@@ -275,3 +275,38 @@ $$
 $$
 
 $m_{ij}$表明了这个元素在矩阵$\boldsymbol{M}$的第$i$行、第$j$列。
+矩阵有行矩阵和列矩阵。
+
+### 4.4.2 矩阵与矢量的关系
+
+矢量可以看成是$n \times 1$的列矩阵（column matrix），或者是 $1 \times n$的行矩阵（row matrix），其中n对应了矢量的维度。例如$\vec v = (x,y,z)$可以写成行矩阵$\left[ \begin{matrix} x & y & z \end{matrix} \right]$，或列矩阵$\left[ \begin{matrix} x \\ y \\ z \end{matrix} \right]$。
+
+通过将矢量表达成矩阵，可以让矢量像一个矩阵一样一起参与距阵运算。
+
+### 4.4.3 矩阵运算
+
+#### 4.4.3.1 矩阵与标量的乘法
+
+矩阵与标量相乘，它的结果仍然是一个相同维度的矩阵，原矩阵的每个元素分别与该标量相乘。
+
+$$
+k\boldsymbol{M} = \boldsymbol{M}k = k
+\left[
+\begin{matrix}
+   m_{11} & m_{12} & m_{13} \\
+   m_{21} & m_{22} & m_{23} \\
+   m_{31} & m_{32} & m_{33}
+\end{matrix}
+\right] =
+\left[
+\begin{matrix}
+   km_{11} & km_{12} & km_{13} \\
+   km_{21} & km_{22} & km_{23} \\
+   km_{31} & km_{32} & km_{33}
+\end{matrix}
+\right]
+$$
+
+#### 4.4.3.2 矩阵与矩阵相乘
+
+
