@@ -411,3 +411,77 @@ $\boldsymbol{MM}^{-1} = \boldsymbol{M}^{-1}\boldsymbol{M} = \boldsymbol{I}$
 
 并非所有的方阵都有对应的逆矩阵。如果一个矩阵有对应的逆矩阵，我们就说这个矩阵是可逆的（invertible）或者说是非奇异的（nonsingular）；相反的，如果一个矩阵没有对应的逆矩阵，我们就说它是不可逆的（noninvertible）或者说是奇异的（singular）。
 
+##### 4.4.4.4.1 逆矩阵的逆矩阵是原矩阵本身
+
+假设矩阵$\boldsymbol{M}$是可逆的，那么
+$$
+(\boldsymbol{M}^{-1})^{-1} = \boldsymbol{M}
+$$
+
+##### 4.4.4.4.2 单位矩阵的逆矩阵是它本身
+
+$$
+\boldsymbol{I}^{-1} = \boldsymbol{I}
+$$
+
+##### 4.4.4.4.3 转置矩阵的逆矩阵是逆矩阵的转置
+
+$$
+(\boldsymbol{M}^T)^{-1} = (\boldsymbol{M}^{-1})^T
+$$
+
+##### 4.4.4.4.4 矩阵串接相乘后的逆矩阵等于反向串接各个矩阵的逆矩阵
+
+$$
+(\boldsymbol{AB})^{-1} = \boldsymbol{B}^{-1}\boldsymbol{A}^{-1}
+$$
+
+#### 4.4.4.5 正交矩阵
+
+如果一个矩阵$\boldsymbol{M}$和它的转置矩阵的乘积是单位矩阵的话，则称这个矩阵是正交的（orthogonal）。
+
+$$
+矩阵\boldsymbol{M}是正交的 \leftrightarrow \boldsymbol{MM}^T = \boldsymbol{M}^T\boldsymbol{M} = \boldsymbol{I} \leftrightarrow \boldsymbol{M}^T = \boldsymbol{M}^{-1}
+$$
+
+### 4.4.5 行矩阵还是列矩阵
+
+这里的行矩阵还是列矩阵指的是矢量转换成的矩阵。即$\vec v = (x,y,z)$既可以转换成行矩阵$\left[\begin{matrix} x & y & z \end{matrix}\right]$，也可以转换成列矩阵$\left[\begin{matrix} x \\ y \\ z \end{matrix}\right]$。
+
+设矩阵$\boldsymbol{M}$为
+
+$$
+\boldsymbol{M} = 
+\left[\begin{matrix}
+   m_{11} & m_{12} & m_{13} \\
+   m_{21} & m_{22} & m_{23} \\
+   m_{31} & m_{32} & m_{33}
+\end{matrix}\right]
+$$
+
+受矩阵乘法的行列数要求所限，行矩阵与$\boldsymbol{M}$相乘只能是$\vec v\boldsymbol{M}$，矢量在左侧，矩阵在右侧。
+
+$$
+\vec v\boldsymbol{M} = \left[\begin{matrix} xm_{11}+ym_{21}+zm_{31} & xm_{12}+ym_{22}+zm_{32} & xm_{13}+ym_{23}+zm_{33} \end{matrix}\right]
+$$
+
+而如果和列矩阵相乘，则要求矩阵在左侧，矢量在右侧，其结果为：
+
+$$
+\boldsymbol{M}\vec v = 
+\left[\begin{matrix} xm_{11}+ym_{12}+zm_{13} \\ xm_{21}+ym_{22}+zm_{23} \\ xm_{31}+ym_{32}+zm_{33} \end{matrix}\right]
+$$
+
+上述两种结果，除了行列矩阵的区别外，里面的元素也不一样。这就意味着，在把矢量和矩阵相乘时选择行矩阵还是列矩阵来表矢量是非常重要的，这决定了矩阵乘法的书写次序和结果值。
+
+在unity中，常规做法是把矢量放在矩阵的右侧，即把矢量转换为列矩阵来进行运算。
+
+$$\boldsymbol{CBA}\vec v = (\boldsymbol{C}(\boldsymbol{B}(\boldsymbol{A}\vec v)))$$
+
+使用列向量的结果是，变换的顺序是从右到左，即先对$\vec v$使用$\boldsymbol{A}$进行变换，再使用$\boldsymbol{B}$进行变换，最后使用$\boldsymbol{C}$进行变换。
+
+上面的计算等价于下面的行矩阵运算：
+
+$$\vec v \boldsymbol{A}^T \boldsymbol{B}^T \boldsymbol{C}^T = (((\vec v \boldsymbol{A}^T)\boldsymbol{B}^T)\boldsymbol{C}^T)$$
+
+根据4.4.4.3.2 矩阵串接的转置，等于反向串接各个矩阵的转置，变换可得。
