@@ -309,4 +309,105 @@ $$
 
 #### 4.4.3.2 矩阵与矩阵相乘
 
+设有$r \times n$的矩阵$\boldsymbol{A}$和一个$n \times c$的矩阵$\boldsymbol{B}$，它们相乘会得到一个$r \times c$的矩阵$\boldsymbol{C} = \boldsymbol{AB}$。那么$\boldsymbol{C}$中的每一个元素$c_{ij}$等于$\boldsymbol{A}$的第$i$行所对应的矢量和$\boldsymbol{B}$的第$j$列所对应的矢量进行矢量点乘的结果，即
+
+$$
+c_{ij} = a_{i1}b_{1j} + a_{i2}b_{2j} + \cdots + a_{in}b_{nj} = \sum\limits_{k=1}^{n}{a_{ik}b_{kj}}
+$$
+
+矩阵乘法满足一些性质。
+
+##### 4.4.3.2.1 矩阵乘法不满足交换律
+
+通常情况下，$\boldsymbol{AB}\neq\boldsymbol{BA}$
+
+##### 4.4.3.2.2 矩阵乘法满足结合律
+
+$(\boldsymbol{AB})\boldsymbol{C} = \boldsymbol{A}(\boldsymbol{BC})$
+
+### 4.4.4 特殊的矩阵
+
+#### 4.4.4.1 方块矩阵
+
+方块矩阵（square matrix），简称方阵，是指那些行和列数目相等的矩阵。
+
+方阵的对角元素是指行号和列号相等的元素，例如$m_{11}, m_{22}, m_{33}$等。
+
+如果一个矩阵除了对角元素外的所有元素都为0，那么这个矩阵就叫做对角矩阵（diagonal matrix）。
+
+#### 4.4.4.2 单位矩阵
+
+一个特殊的对角矩阵是单位矩阵（identity matrix），用$\boldsymbol{I}_n$来表示。一个$3 \times 3$的单位矩阵如下：
+
+$$
+\boldsymbol{I}_3 =
+\left[
+\begin{matrix}
+   1 & 0 & 0 \\
+   0 & 1 & 0 \\
+   0 & 0 & 1
+\end{matrix}
+\right]
+$$
+
+任何矩阵与单位矩阵相乘的结果为原来的矩阵，即：
+
+$\boldsymbol{MI} = \boldsymbol{IM} = \boldsymbol{M}$
+
+#### 4.4.4.3 转置矩阵
+
+转置矩阵（transposed matrix）实际是对原矩阵的一种运算，即转置运算。给定一个$r \times c$的矩阵$\boldsymbol{M}$，它的转置表示成$\boldsymbol{M}^T$，这是一个$c \times r$的矩阵。原矩阵的第$i$行变成第$i$列，而第$j$列变成第$j$行。
+
+$\boldsymbol{M}_{ij}^T = \boldsymbol{M}_{ji}$
+
+
+可以使用转置操作来转换行列矩阵：
+
+$$
+\left[
+\begin{matrix}
+   x & y & z
+\end{matrix}
+\right]^T = 
+\left[
+\begin{matrix}
+   x \\
+   y \\
+   z
+\end{matrix}
+\right]
+$$
+
+$$
+\left[
+\begin{matrix}
+   x \\
+   y \\
+   z
+\end{matrix}
+\right]^T = 
+\left[
+\begin{matrix}
+   x & y & z
+\end{matrix}
+\right]
+$$
+
+##### 4.4.4.3.1 矩阵的转置的转置等于原矩阵
+
+$(\boldsymbol{M}^T)^T = \boldsymbol{M}$
+
+##### 4.4.4.3.2 矩阵串接的转置，等于反向串接各个矩阵的转置
+
+$(\boldsymbol{AB})^T = \boldsymbol{B}^T\boldsymbol{A}^T$
+
+#### 4.4.4.4 逆矩阵
+
+只有方阵才有逆矩阵。
+
+给定一个方阵$\boldsymbol{M}$，它的逆矩阵用$\boldsymbol{M}^{-1}$来表示。逆矩阵与原矩阵相乘的结果为单位矩阵。即：
+
+$\boldsymbol{MM}^{-1} = \boldsymbol{M}^{-1}\boldsymbol{M} = \boldsymbol{I}$
+
+并非所有的方阵都有对应的逆矩阵。如果一个矩阵有对应的逆矩阵，我们就说这个矩阵是可逆的（invertible）或者说是非奇异的（nonsingular）；相反的，如果一个矩阵没有对应的逆矩阵，我们就说它是不可逆的（noninvertible）或者说是奇异的（singular）。
 
