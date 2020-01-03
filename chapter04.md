@@ -485,3 +485,18 @@ $$\boldsymbol{CBA}\vec v = (\boldsymbol{C}(\boldsymbol{B}(\boldsymbol{A}\vec v))
 $$\vec v \boldsymbol{A}^T \boldsymbol{B}^T \boldsymbol{C}^T = (((\vec v \boldsymbol{A}^T)\boldsymbol{B}^T)\boldsymbol{C}^T)$$
 
 根据4.4.4.3.2 矩阵串接的转置，等于反向串接各个矩阵的转置，变换可得。
+
+### 4.4.6 练习题
+
+1\. 判断下面矩阵的乘法是否存在。如果存在，计算它们的乘积。
+(1) $\left[\begin{matrix} 1 & 3 \\ 2 & 4 \end{matrix}\right]\left[\begin{matrix} -1 & 5 \\ 0 & 2 \end{matrix}\right]$
+第一个矩阵的列数等于第二个矩阵的行数，所以它们的乘法存在。其乘积为
+$\left[\begin{matrix} -1 & 11 \\ -2 & 18 \end{matrix}\right]$
+
+(2) $\left[\begin{matrix} 2 & 4 & 3 \\ 2 & 1 & 4 \end{matrix}\right]\left[\begin{matrix} -1 & 5 \\ 0 & 2 \\ 3 & 10 \end{matrix}\right]$
+第一个矩阵的列数等于第二个矩阵的行数，所以它们的乘法存在，其乘积为
+$\left[\begin{matrix} 7 & 48 \\ 10 & 52 \end{matrix}\right]$
+
+(3) $\left[\begin{matrix} 1 & -2 & 3 \\ 5 & 1 & 4 \\ 6 & 0 & 3 \end{matrix}\right]\left[\begin{matrix} -5 \\ 4 \\ 8 \end{matrix}\right]$
+第一个矩阵的列数等于第二个矩阵的行数，所以它们的乘法存在，其乘积为
+$\left[\begin{matrix} 11 \\ 11 \\ -6 \end{matrix}\right]$
