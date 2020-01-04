@@ -503,4 +503,10 @@ $\left[\begin{matrix} 11 \\ 11 \\ -6 \end{matrix}\right]$
 
 2\. 判断下面的矩阵是否是正交矩阵。
 (1) $\left[\begin{matrix} 1 & 0 & 0 \\ 1 & 0 & 0 \\ 1 & 0 & 0 \end{matrix}\right]$
-因为$\left[\begin{matrix} 1 & 0 & 0 \\ 1 & 0 & 0 \\ 1 & 0 & 0 \end{matrix}\right]\left[\begin{matrix} 1 & 0 & 0 \\ 1 & 0 & 0 \\ 1 & 0 & 0 \end{matrix}\right]^T = \left[\begin{matrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{matrix}\right] \neq \boldsymbol{I}_3$，所以它不是正交矩阵。
+答：因为$\left[\begin{matrix} 1 & 0 & 0 \\ 1 & 0 & 0 \\ 1 & 0 & 0 \end{matrix}\right]\left[\begin{matrix} 1 & 0 & 0 \\ 1 & 0 & 0 \\ 1 & 0 & 0 \end{matrix}\right]^T = \left[\begin{matrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{matrix}\right] \neq \boldsymbol{I}_3$，所以它不是正交矩阵。
+
+(2) $\left[\begin{matrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{matrix}\right]$
+答：因为$\boldsymbol{I}_4\boldsymbol{I}_4^T = \boldsymbol{I}_4^T = \boldsymbol{I}_4$，所以它是正交矩阵。
+
+(3) $\left[\begin{matrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right]$
+答：因为$\left[\begin{matrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right]\left[\begin{matrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right]^T = \left[\begin{matrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right]\left[\begin{matrix} \cos\theta & \sin\theta & 0 \\ -\sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right] = \left[\begin{matrix} (\cos\theta)(\cos\theta) + (-\sin\theta)(-\sin\theta) + (0)(0) & (\cos\theta)(\sin\theta) + (-\sin\theta)(\cos\theta) + (0)(0) &  (\cos\theta)(0)+(-\sin\theta)(0)+(0)(1) \\ \sin\theta\cos\theta + \cos\theta(-\sin\theta)+(0)(0) & \sin\theta\sin\theta + \cos\theta\cos\theta + (0)(0) & (\sin\theta)(0)+(\cos\theta)(0)+(0)(1) \\ (0)\cos\theta+(0)(-\sin\theta)+(1)(0) & (0)\sin\theta+(0)\cos\theta+(1)(0) & (0)(0)+(0)(0)+(1)(1) \end{matrix}\right] = \left[\begin{matrix} \cos^2\theta+\sin^2\theta & 0 & 0 \\ 0 & \sin^2\theta+\cos^2\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right] = \left[\begin{matrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{matrix}\right] = \boldsymbol{I}_3$，所以它是正交矩阵。
