@@ -510,3 +510,24 @@ $\left[\begin{matrix} 11 \\ 11 \\ -6 \end{matrix}\right]$
 
 (3) $\left[\begin{matrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right]$
 答：因为$\left[\begin{matrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right]\left[\begin{matrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right]^T = \left[\begin{matrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right]\left[\begin{matrix} \cos\theta & \sin\theta & 0 \\ -\sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right] = \left[\begin{matrix} (\cos\theta)(\cos\theta) + (-\sin\theta)(-\sin\theta) + (0)(0) & (\cos\theta)(\sin\theta) + (-\sin\theta)(\cos\theta) + (0)(0) &  (\cos\theta)(0)+(-\sin\theta)(0)+(0)(1) \\ \sin\theta\cos\theta + \cos\theta(-\sin\theta)+(0)(0) & \sin\theta\sin\theta + \cos\theta\cos\theta + (0)(0) & (\sin\theta)(0)+(\cos\theta)(0)+(0)(1) \\ (0)\cos\theta+(0)(-\sin\theta)+(1)(0) & (0)\sin\theta+(0)\cos\theta+(1)(0) & (0)(0)+(0)(0)+(1)(1) \end{matrix}\right] = \left[\begin{matrix} \cos^2\theta+\sin^2\theta & 0 & 0 \\ 0 & \sin^2\theta+\cos^2\theta & 0 \\ 0 & 0 & 1 \end{matrix}\right] = \left[\begin{matrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{matrix}\right] = \boldsymbol{I}_3$，所以它是正交矩阵。
+
+3\. 给定一个矢量(3,2,6)，分别把它当成行矩阵和列矩阵与下面的矩阵相乘。考虑两种情况下得到的矢量结果是否一样。如果不一样，考虑如何得到相同的结果。
+
+(1) $\left[\begin{matrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{matrix}\right]$
+答：因为是单位矩阵，所以给定的矢量与其相乘，将会得到本身，即$(3,2,6)$。
+
+(2) $\left[\begin{matrix} 1 & 0 & 2 \\ 0 & 1 & -3 \\ 0 & 0 & 3 \end{matrix}\right]$
+答：
+矢量作为行矩阵时，计算结果如下：
+$\left[\begin{matrix} 3 & 2 & 6 \end{matrix}\right]\left[\begin{matrix} 1 & 0 & 2 \\ 0 & 1 & -3 \\ 0 & 0 & 3 \end{matrix}\right] = \left[\begin{matrix} 3 & 2 & 18 \end{matrix}\right]$
+矢量作为列矩阵时，计算结果如下：
+$\left[\begin{matrix} 1 & 0 & 2 \\ 0 & 1 & -3 \\ 0 & 0 & 3 \end{matrix}\right]\left[\begin{matrix} 3 \\ 2 \\ 6 \end{matrix}\right] = \left[\begin{matrix} 15 \\ -16 \\ 18 \end{matrix}\right]$
+将其中的$3\times 3$矩阵做一个转置，即可得到相同的结果。
+
+(3) $\left[\begin{matrix} 2 & -1 & 3 \\ -1 & 5 & -3 \\ 3 & -3 & 4 \end{matrix}\right]$
+
+答：记给定的矢量为$\boldsymbol{V} = \left[\begin{matrix} 3 & 2 & 6 \end{matrix}\right]$，记给定的矩阵为$\boldsymbol{M}$，那么有
+$(\boldsymbol{VM})^T = \boldsymbol{M}^T\boldsymbol{V}^T$
+其中的$\boldsymbol{V}^T$即为列矩阵。
+
+观察得$\boldsymbol{M}^T = \boldsymbol{M}$，则有$(\boldsymbol{VM})^T = \boldsymbol{MV}^T$，所以把给定的矢量当成行矩阵和列矩阵与给定的矩阵相乘，得到的结果矢量相等。
