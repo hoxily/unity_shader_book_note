@@ -531,3 +531,30 @@ $(\boldsymbol{VM})^T = \boldsymbol{M}^T\boldsymbol{V}^T$
 其中的$\boldsymbol{V}^T$即为列矩阵。
 
 观察得$\boldsymbol{M}^T = \boldsymbol{M}$，则有$(\boldsymbol{VM})^T = \boldsymbol{MV}^T$，所以把给定的矢量当成行矩阵和列矩阵与给定的矩阵相乘，得到的结果矢量相等。
+
+## 4.5 矩阵的几何意义：变换
+
+在三维渲染中矩阵可视化的结果就是变换。
+
+### 4.5.1 什么是变换
+
+变换（transform）指的是我们把一些数据，如点、方向矢量甚至是颜色等，通过某种方式进行转换的过程。
+
+线性变换（linear transform）指的是那些可以保留矢量加和标量乘的变换。用数学公式表达即：
+
+$$
+f(x) + f(y) = f(x + y)
+$$
+$$
+kf(x) = f(kx)
+$$
+
+线性变换包括：缩放（scale）、旋转（rotation）、错切（shear）、镜像（mirroring或reflection）、正交投影（orthographic projection）等。
+
+仅有线性变换是不够的。考虑平移变换，例如$f(x) = x + (1,2,3)$。这个变换就不是一个线性变换，它满足标量乘法，但不满足矢量加法。令$x=(1,1,1)$，那么：
+$f(x)+f(x) = (4,6,8)$
+$f(x+x) = (3,4,5)$
+可以看到两个运算的结果不一样。
+
+仿射变换（affine transform）是合并线性变换和平移变换的变换类型。仿射变换可以使用一个$4 \times 4$的矩阵来表示。为此，需要把矢量扩展到四维空间下，这就是齐次坐标空间（homogeneous space）。
+
