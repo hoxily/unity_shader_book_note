@@ -572,3 +572,73 @@ $f(x+x) = (3,4,5)$
 透视投影 | 否 | 否 | 否 | 否
 
 ### 4.5.2 齐次坐标
+
+由于$3 \times 3$矩阵不能表示平移操作，我们就把它扩展到了$4 \times 4$的矩阵。为此，还需要把原来的三维矢量转换成四维矢量，也就是所说的齐次坐标（homogeneous coordinate）。
+
+对于一个点，从三维坐标转换成齐次坐标是把其$w$分量设为1，而对于方向矢量，需要把其$w$分量设为0。这样的设置会导致，用一个$4 \times 4$矩阵对一个点进行变换时，平移、旋转、缩放都会施加于该点。但是如果是用于变换一个方向矢量，平移的效果就会被忽略。
+
+### 4.5.3 分解基础变换矩阵
+
+把表示纯平移、纯旋转和纯缩放的变换矩阵叫做基础变换矩阵。这些矩阵具有一些共同点，可以把一个基础变换矩阵分解成4个组成部分：
+$$
+\left[\begin{matrix}
+\boldsymbol{M}_{3 \times 3} & \boldsymbol{t}_{3 \times 1} \\
+0_{1 \times 3} & 1
+\end{matrix}\right]
+$$
+其中左上角的矩阵$\boldsymbol{M}_{3 \times 3}$用于表示旋转和缩放，$\boldsymbol{t}_{3 \times 1}$用于表示平移，$0_{1 \times 3}$是零矩阵，右下角的元素就是标量1。
+
+### 4.5.4 平移矩阵
+
+使用平移矩阵对一个点进行变换：
+
+$$
+\left[\begin{matrix}
+1 & 0 & 0 & t_x \\
+0 & 1 & 0 & t_y \\
+0 & 0 & 1 & t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]\left[\begin{matrix}
+x \\
+y \\
+z \\
+1
+\end{matrix}\right] = \left[\begin{matrix}
+x + t_x \\
+y + t_y \\
+z + t_z \\
+1
+\end{matrix}\right]
+$$
+
+如果对一个方向矢量进行平移变换，结果如下：
+
+$$
+\left[\begin{matrix}
+1 & 0 & 0 & t_x \\
+0 & 1 & 0 & t_y \\
+0 & 0 & 1 & t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]\left[\begin{matrix}
+x \\
+y \\
+z \\
+0
+\end{matrix}\right] = \left[\begin{matrix}
+x \\
+y \\
+z \\
+0
+\end{matrix}\right]
+$$
+
+平移矩阵的逆矩阵就是反向平移得到的矩阵，即
+
+$$
+\left[\begin{matrix}
+1 & 0 & 0 & -t_x \\
+0 & 1 & 0 & -t_y \\
+0 & 0 & 1 & -t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
