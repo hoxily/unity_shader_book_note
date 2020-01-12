@@ -642,3 +642,104 @@ $$
 0 & 0 & 0 & 1
 \end{matrix}\right]
 $$
+
+### 4.5.5 缩放矩阵
+
+对一个点沿着x轴、y轴、z轴进行缩放：
+
+$$
+\left[\begin{matrix}
+k_x & 0 & 0 & 0 \\
+0 & k_y & 0 & 0 \\
+0 & 0 & k_z & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]\left[\begin{matrix}
+x \\
+y \\
+z \\
+1
+\end{matrix}\right] = \left[\begin{matrix}
+k_xx \\
+k_yy \\
+k_zz \\
+1
+\end{matrix}\right]
+$$
+
+对一个方向矢量沿着x轴、y轴、z轴进行缩放：
+
+$$
+\left[\begin{matrix}
+k_x & 0 & 0 & 0 \\
+0 & k_y & 0 & 0 \\
+0 & 0 & k_z & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]\left[\begin{matrix}
+x \\
+y \\
+z \\
+0
+\end{matrix}\right] = \left[\begin{matrix}
+k_xx \\
+k_yy \\
+k_zz \\
+0
+\end{matrix}\right]
+$$
+
+如果缩放系数$k_x = k_y = k_z$，那么这样的缩放被称之为统一缩放（uniform scale），否则为非统一缩放（nonuniform scale）。统一缩放不会改变角度和比例信息，而非统一缩放会改变与模型相关的角度和比例。
+
+缩放矩阵的逆矩阵就是使用原缩放系数的倒数来对点或方向矢量进行缩放，即：
+
+$$
+\left[\begin{matrix}
+\frac{1}{k_x} & 0 & 0 & 0 \\
+0 & \frac{1}{k_y} & 0 & 0 \\
+0 & 0 & \frac{1}{k_z} & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+### 4.5.6 旋转矩阵
+
+把点绕x轴旋转$\theta$度的变换如下：
+
+$$
+R_x(\theta) = 
+\left[\begin{matrix}
+1 & 0 & 0 & 0 \\
+0 & \cos\theta & -\sin\theta & 0 \\
+0 & \sin\theta & \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+把点绕y轴旋转$\theta$度的变换如下：
+
+$$
+R_y(\theta) = 
+\left[\begin{matrix}
+\cos\theta & 0 & \sin\theta & 0 \\
+0 & 1 & 0 & 0 \\
+-\sin\theta & 0 & \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+把点绕z轴旋转$\theta$度的变换如下：
+
+$$
+R_z(\theta) = 
+\left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+旋转矩阵的逆矩阵是旋转相反角度得到的变换矩阵。即：
+
+$$
+R(\theta)R(-\theta) = I_4
+$$
