@@ -756,4 +756,12 @@ $$
 
 在大多数情况下，约定变换的顺序就是先缩放，再旋转，最后平移。
 
-当我们直接给出$(\theta_x, \theta_y, \theta_z)$这样的欧拉角时，
+注：下面的旋转角讨论实在看不懂。可以先看一下[这篇blog对欧拉角的讨论](https://blog.csdn.net/csxiaoshui/article/details/65437633)。涉及旋转角的组合方式（6种Tait-Bryan角，6种Proper Euler角）、旋转角度的参考坐标系（固定坐标系（extrinsic rotations）、相对物体自身的坐标系（intrinsic rotations））。
+
+注：还可以参考[这篇讨论欧拉角细节、旋转顺序、内旋外旋的文章](https://zhuanlan.zhihu.com/p/85108850)。
+
+当我们直接给出$(\theta_x, \theta_y, \theta_z)$这样的旋转角时，需要定义一个旋转顺序。再Unity中，这个旋转顺序是zxy。这意味着，当给定$(\theta_x, \theta_y, \theta_z)$这样的旋转角时，得到的组合旋转变换矩阵是：
+
+$$
+R_z(\theta_z)R_x(\theta_x)R_y(\theta_y)
+$$
