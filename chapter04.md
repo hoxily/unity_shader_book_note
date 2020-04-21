@@ -763,5 +763,7 @@ $$
 当我们直接给出$(\theta_x, \theta_y, \theta_z)$这样的旋转角时，需要定义一个旋转顺序。再Unity中，这个旋转顺序是zxy。这意味着，当给定$(\theta_x, \theta_y, \theta_z)$这样的旋转角时，得到的组合旋转变换矩阵是：
 
 $$
-R_z(\theta_z)R_x(\theta_x)R_y(\theta_y)
+R_y(\theta_y)R_x(\theta_x)R_z(\theta_z)
 $$
+
+注：参考[unity euler angle测试项目](https://github.com/hoxily/unity_euler_angle/)，帮助理解内旋和外旋，以及Unity3D文档里说的zxy顺序。
