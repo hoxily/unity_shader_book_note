@@ -785,3 +785,107 @@ $$
 要想定义一个坐标空间，需要指明其原点位置和3个坐标轴的方向。而这些数值实际上是相对于另一个坐标空间的。所有的坐标空间都是相对的。坐标空间会形成一个层次结构——每个坐标空间都是另一个坐标空间的子空间，反过来说，每个空间都有一个父空间。对坐标空间的变换实际上就是在父空间和子空间之间对点和矢量进行变换。
 
 注：1.坐标系变换那里是否需要完整记录？2.MVP变换看起来使用GAMES101课程的作业来辅助可能效果会更好，毕竟闫令琪的投影矩阵推导过程很容易看懂。3.书中的小牛鼻子坐标点变换到屏幕的代入计算，可以尝试使用Unity工程建立场景，用涂上颜色的小球来代表鼻子进行直接观察。同时还可以读取相关的矩阵，跟书中的矩阵数值就行比对，加以验证。4. 坐标空间的旋向性变换如何验证？书中推导父空间变换到子空间的过程中，为什么只说了平移，而没有提到旋转呢？
+
+自问自答：4.推导过程中因为已经给出了三个坐标轴在父空间下的表达，所以直接代入即可，也就沿着三个坐标轴平移。
+
+假设，现在有一个父坐标空间$P$以及一个子坐标空间$C$。我们知道在父坐标空间下，子坐标空间的原点位置以及3个单位坐标轴。我们一般会有两种需求：一种需求是把子坐标空间下表示的点或矢量$A_c$转换到父坐标空间下的表示$A_p$，另一个需求是反过来，即把父坐标空间下表示的点或矢量$B_p$转换到子坐标空间下的表示$B_c$。我们可以使用下面的公式来表示这两种需求：
+
+$$
+A_p = \boldsymbol{M}_{c \rightarrow p} A_c
+$$
+$$
+B_c = \boldsymbol{M}_{p \rightarrow c} B_p
+$$
+
+$\boldsymbol{M}_{c \rightarrow p}$和$\boldsymbol{M}_{p \rightarrow c}$互为逆矩阵。
+
+设已知子坐标空间$C$的3个坐标轴在父空间$P$下的表示为$\bold{x}_c, \bold{y}_c, \bold{z}_c$，以及其原点位置$O_c$。当给定一个子空间的一点$A_c = (a,b,c)$，我们可以用下面的四个步骤来确定该点在父空间下的位置$A_p$:
+
+1. 从子空间的原点开始
+
+$$
+O_c
+$$
+
+2. 向x轴方向移动a个单位
+
+$$
+O_c + a\bold{x}_c
+$$
+
+3. 向y轴方向移动b个单位
+
+$$
+O_c + a\bold{x}_c + b\bold{y}_c
+$$
+
+4. 向z轴方向移动c个单位
+
+$$
+O_c + a\bold{x}_c + b\bold{y}_c + c\bold{z}_c
+$$
+
+最后得到的式子：
+
+$$
+A_p = O_c + a\bold{x}_c + b\bold{y}_c + c\bold{z}_c
+$$
+
+对上面的式子进行如下变换：
+
+$$
+A_p = O_c + a\bold{x}_c + b\bold{y}_c + c\bold{z}_c\\
+= (x_{oc},y_{oc},z_{oc}) + a(x_{xc},y_{xc},z_{xc}) + b(x_{yc},y_{yc},z_{yc}) + c(x_{zc},y_{zc},z_{zc})\\
+= (x_{oc},y_{oc},z_{oc}) + \left[\begin{matrix}
+x_{xc} & x_{yc} & x_{zc} \\
+y_{xc} & y_{yc} & y_{zc} \\
+z_{xc} & z_{yc} & z_{zc} \\
+\end{matrix}\right]
+\left[\begin{matrix}
+a \\
+b \\
+c \\
+\end{matrix}\right]
+$$
+
+扩展为齐次坐标系，可得：
+
+$$
+A_p = (x_{oc},y_{oc},z_{oc},1) + a(x_{xc},y_{xc},z_{xc},0) + b(x_{yc},y_{yc},z_{yc},0) + c(x_{zc},y_{zc},z_{zc},0)\\
+= (x_{oc},y_{oc},z_{oc},1) + \left[\begin{matrix}
+x_{xc} & x_{yc} & x_{zc} & 0 \\
+y_{xc} & y_{yc} & y_{zc} & 0 \\
+z_{xc} & z_{yc} & z_{zc} & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+a \\
+b \\
+c \\
+1
+\end{matrix}\right]\\
+= \left[\begin{matrix}
+x_{xc} & x_{yc} & x_{zc} & x_{oc} \\
+y_{xc} & y_{yc} & y_{zc} & y_{oc} \\
+z_{xc} & z_{yc} & z_{zc} & z_{oc} \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+a \\
+b \\
+c \\
+1
+\end{matrix}\right]
+$$
+
+我们所说的$\boldsymbol{M}_{c \rightarrow p}$就是$\left[\begin{matrix}
+x_{xc} & x_{yc} & x_{zc} & x_{oc} \\
+y_{xc} & y_{yc} & y_{zc} & y_{oc} \\
+z_{xc} & z_{yc} & z_{zc} & z_{oc} \\
+0 & 0 & 0 & 1
+\end{matrix}\right]$
+
+得到$\boldsymbol{M}_{c \rightarrow p}$，求逆即得$\boldsymbol{M}_{p \rightarrow c}$。
+
+余下略。（讨论了互为正交矩阵的情况下，在shader里直接取矩阵的前3行和前3列构成的3x3矩阵的特性）
+
