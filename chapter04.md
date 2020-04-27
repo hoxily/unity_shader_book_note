@@ -1022,3 +1022,69 @@ $$
 从上图可以注意到，裁剪矩阵改变了空间的旋向性，空间从右手坐标系变换到了左手坐标系。
 
 注：可以将上图中左侧的四个关注的顶点，代入上面的公式，可以得到上图右侧的坐标值。
+
+#### 4.6.7.2 正交投影
+
+在Unity中，正交投影的6个裁剪平面也是有Camera组件中的参数和Game视图的横纵比共同决定的。如图4.40所示。
+
+![图4.40 正交摄像机的参数对正交投影视锥体的影响](images/chapter04_orthographic_projection_camera_settings.png)
+
+Camera组件的Size属性决定了视锥体竖直方向上高度的一半，而Clipping Planes中的Near和Far参数可以控制视锥体的近裁剪平面和远裁剪平面跟摄像机的距离。因此可以求出近裁剪平面和远裁剪平面的高度：
+
+$$
+nearClipPlaneHeight = 2 \cdot Size \\
+farClipPlaneHeight = nearClipPlaneHeight
+$$
+
+同样的，我们可以通过摄像机的横纵比得到横向信息。
+
+$$
+nearClipPlaneWidth = Aspect \cdot nearClipPlaneHeight \\
+farClipPlaneWidth = nearClipPlaneWidth
+$$
+
+现在，我们可以根据已知的Near、Far、Size和Aspect来确定正交投影的裁剪矩阵：
+
+$$
+\boldsymbol{M}_{ortho} = \left[\begin{matrix}
+\frac{1}{Aspect \cdot Size} & 0 & 0 & 0 \\
+0 & \frac{1}{Size} & 0 & 0 \\
+0 & 0 & -\frac{2}{Far-Near} & -\frac{Far+Near}{Far-Near} \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+上面公示的推导参见本章的扩展阅读。同样的，这里的投影矩阵是建立在Unity对坐标系的假定上的。
+
+一个顶点与上述投影矩阵相乘后的结果如下：
+
+$$
+p_{clip} = \boldsymbol{M}_{ortho}p_{view} \\
+= \left[\begin{matrix}
+\frac{1}{Aspect \cdot Size} & 0 & 0 & 0 \\
+0 & \frac{1}{Size} & 0 & 0 \\
+0 & 0 & -\frac{2}{Far-Near} & -\frac{Far+Near}{Far-Near} \\
+0 & 0 & 0 & 1
+\end{matrix}\right]\left[\begin{matrix}
+x \\
+y \\
+z \\
+1
+\end{matrix}\right] \\
+= \left[\begin{matrix}
+\frac{x}{Aspect \cdot Size}\\
+\frac{y}{Size}\\
+-\frac{2z}{Far-Near}-\frac{Far+Near}{Far-Near} \\
+1
+\end{matrix}\right]
+$$
+
+使用正交投影的投影矩阵对顶点进行变换后，其w分量仍然为1。本质是因为矩阵的最后一行的不同。
+
+判断一个变换后的顶点是否位于视锥体内使用的不等式和透视投影中的一样。这也是为什么要使用投影矩阵的原因之一。图4.41显示了经过上述投影矩阵变换后，视锥体的变化。
+
+![图4.41 在正交投影中，投影矩阵对顶点进行了缩放。](images/chapter04_transform_frustum_by_orthographic_projection.png)
+
+同样的，正交投影的裁剪矩阵改变了空间的旋向性。
+
+经过正交投影变换后的顶点已经位于一个立方体内了。
