@@ -984,3 +984,41 @@ $$
 
 上面公式的推导部分可以参见本章的扩展阅读部分。需要注意的是，这里的投影矩阵是建立在Unity对坐标系的假定上面的，也就是说，我们针对的是观察空间为右手坐标系，使用列矩阵在矩阵右侧进行相乘，且变换后z分量范围将在$[-w, w]$之间的情况。
 
+一个顶点和上述投影矩阵相乘后，可以由观察空间变换到裁剪空间中，结果如下：
+
+$$
+p_{clip} = \boldsymbol{M}_{frustum}p_{view} \\
+= \left[\begin{matrix}
+\frac{1}{Aspect \cdot \tan\frac{FOV}{2}} & 0 & 0 & 0 \\
+0 & \frac{1}{\tan\frac{FOV}{2}} & 0 & 0 \\
+0 & 0 & -\frac{Far+Near}{Far-Near} & -\frac{2 \cdot Near \cdot Far}{Far-Near} \\
+0 & 0 & -1 & 0
+\end{matrix}\right]\left[\begin{matrix}
+x \\
+y \\
+z \\
+1
+\end{matrix}\right]\\
+= \left[\begin{matrix}
+\frac{x}{Aspect \cdot \tan\frac{FOV}{2}}\\
+\frac{y}{\tan\frac{FOV}{2}}\\
+-z\frac{Far+Near}{Far-Near}-\frac{2 \cdot Near \cdot Far}{Far-Near} \\
+-z
+\end{matrix}\right]
+$$
+
+从结果可以看出，这个投影矩阵对x、y、z分量进行了不同程度的缩放，z分量还做了一个平移。缩放的目的是为了方便裁剪。此时顶点的w分量不再是1，而是原先z分量的相反数。现在，我们就可以按如下不等式来判断一个变换后的顶点是否位于视锥体内。如果一个顶点在视锥体内，那么它变换后的坐标必须满足：
+
+$$
+-w \leqslant x \leqslant w \\
+-w \leqslant y \leqslant w \\
+-w \leqslant z \leqslant w \\
+$$
+
+任何不满足上述条件的图元都需要被剔除或者裁剪。图4.39显示了经过上述投影矩阵变换后，视锥体的变化。
+
+![图4.39 在透视投影中，投影矩阵对顶点进行了缩放。](images/chapter04_transform_frustum_by_perspective_projection.png)
+
+从上图可以注意到，裁剪矩阵改变了空间的旋向性，空间从右手坐标系变换到了左手坐标系。
+
+注：可以将上图中左侧的四个关注的顶点，代入上面的公式，可以得到上图右侧的坐标值。
