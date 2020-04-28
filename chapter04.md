@@ -1124,3 +1124,13 @@ $$
 
 在Unity中，从裁剪空间到屏幕空间的转换是Unity帮我们完成的。我们的顶点着色器只需要把顶点转换到裁剪空间即可。
 
+### 4.6.9 总结
+
+下图总结了顶点变换过程中用到的坐标空间和用于变换的矩阵。
+
+![图4.45 渲染流水线中顶点的空间变换过程](images/chapter04_transformations_in_pipeline.svg)
+
+在Unity中，坐标系的旋向性也随着变换发生了改变。下图总结了各个空间使用的坐标系的旋向性。
+
+![图4.46 Unity中各个坐标空间的旋向性](images/chapter04_handedness_of_coordinate_systems.svg)
+
