@@ -1181,3 +1181,5 @@ $$
 如果变换矩阵是正交矩阵，那么就可以使用变换顶点的变换矩阵来直接变换法线。如果变换只包括旋转变换，那么这个变换矩阵就是正交矩阵。而如果变换只包含旋转和统一缩放，而不包含非统一缩放，我们利用统一缩放系数k来得到变换矩阵$\boldsymbol{M}_{A \rightarrow B}$的逆转置矩阵$(\boldsymbol{M}_{A \rightarrow B} ^ T) ^ {-1} = \frac{1}{k}\boldsymbol{M}_{A \rightarrow B}$。这样就可以避免计算逆矩阵的过程。如果含有非统一变换，那么我们就必须求解逆矩阵来得到变换法线的矩阵。
 
 注：如果变换只包含旋转和统一缩放，即$\boldsymbol{M}_{A \rightarrow B}$可以分解为缩放和旋转的复合变换$\boldsymbol{R}\boldsymbol{S}$，那么就有$((\boldsymbol{R}\boldsymbol{S})^T)^{-1} = (\boldsymbol{S}^T\boldsymbol{R}^T)^{-1} = ((\boldsymbol{R}^T)^{-1})((\boldsymbol{S}^T)^{-1}) = \boldsymbol{R}\boldsymbol{S}^{-1}$，缩放k倍的逆矩阵就是缩放$\frac{1}{k}$倍，所以有 $\boldsymbol{R}\boldsymbol{S}^{-1} = \boldsymbol{R}(\frac{1}{k}\boldsymbol{S})$。由于是线性变换，所以$\frac{1}{k}$可以拿到左边。
+
+疑问：为什么系数可以提到左边？
