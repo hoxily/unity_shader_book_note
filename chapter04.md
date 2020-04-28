@@ -1134,3 +1134,28 @@ $$
 
 ![图4.46 Unity中各个坐标空间的旋向性](images/chapter04_handedness_of_coordinate_systems.svg)
 
+## 4.7 法线变换
+
+法线（normal），也被称为法矢量（normal vector）。在上面我们已经看到如何使用变换矩阵来变换一个顶点或一个方向矢量，但法线是需要特殊处理的一种方向矢量。
+
+当我们变换一个模型的时候，不仅需要变换它的顶点，还需要变换顶点法线，以便在后续处理中计算光照。
+
+一般来说，点和绝大部分方向矢量都可以使用同一个$4 \times 4$或$3 \times 3$的变换矩阵$\boldsymbol{M}_{A \rightarrow B}$把它从坐标空间A变换到坐标空间B中。但在变换法线的时候，如果使用同一个变换矩阵，可能就无法确保维持法线的垂直性。
+
+切线（tangent），也被称为切矢量（tangent vector）。与法线类似，切线往往也是模型顶点携带的一种信息。它通常与纹理空间对齐，而且与法线方向垂直，如图4.47所示。
+
+![图4.47 顶点的切线和法线。切线和法线互相垂直](images/chapter04_tangent_and_normal_of_a_vertex.png)
+
+由于切线是由两个顶点的差值计算得到的，因此我们可以直接使用用于变换顶点的矩阵来变换切线。
+
+注：上面这句利用了仿射变换的性质，即f(x-y) = f(x) - f(y)。见上面的表4.1.
+
+假设我们使用了$3 \times 3$的变换矩阵$\boldsymbol{M}_{A \rightarrow B}$来变换顶点。可以由下面的式子直接得到变换后的切线：
+
+$$
+\boldsymbol{T}_B = \boldsymbol{M}_{A \rightarrow B}\boldsymbol{T}_A
+$$
+
+其中$\boldsymbol{T}_A$和$\boldsymbol{T}_B$分别表示在坐标空间A下和坐标空间B下的切线方向。
+
+
