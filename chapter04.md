@@ -1158,4 +1158,6 @@ $$
 
 其中$\boldsymbol{T}_A$和$\boldsymbol{T}_B$分别表示在坐标空间A下和坐标空间B下的切线方向。
 
+如果直接使用$\boldsymbol{M}_{A \rightarrow B}$来变换法线，得到的新法线方向可能就不会与表面垂直了。下图给出了这样的一个例子。
 
+![图4.48 进行非统一缩放时，如果使用和变换顶点相同的变换矩阵来变换法线，就会得到错误的结果，即变换后的法线方向与平面不再垂直](images/chapter04_wrong_example_using_same_matrix_to_transform_normal_vector.png)
