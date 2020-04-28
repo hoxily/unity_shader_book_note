@@ -1106,3 +1106,21 @@ $$
 ![图 4.43 经过齐次除法后 ，透视投影的裁剪空间会变换到一个立方体](images/chapter04_get_ndc_cube_by_homogeneous_division.png)
 
 而对于正交投影来说，它的裁剪空间已经是一个立方体了，而且经过正交投影矩阵变换后的顶点w分量是1，因此齐次除法并不会对顶点的x、y、z产生影响。
+
+现在我们可以根据变换后的x和y坐标来映射输出窗口的对应像素坐标。
+
+在Unity中，屏幕空间的左下角像素的坐标是$(0,0)$，右上角的像素坐标是$(pixelWidth,pixelHeight)$。由于当前x和y的范围是$[-1,1]$，因此这个映射过程就是一个缩放的过程。
+
+注：如果左下角像素坐标是(0,0)，那么右上角像素坐标应该是(pixelWidth-1,pixelHeight-1)，否则像素个数就不是pixelWidth和pixelHeight。
+
+齐次除法和屏幕映射的过程可以使用下面的公式来总结：
+
+$$
+screen_x = \frac{clip_x \cdot pixelWidth}{2 \cdot clip_w}+\frac{pixelWidth}{2}\\
+screen_y = \frac{clip_y \cdot pixelHeight}{2 \cdot clip_w}+\frac{pixelHeight}{2}
+$$
+
+上面的式子对x和y分量都进行了处理，那么z分量呢？通常z分量会被用于深度缓冲。一个传统的方式是把$\frac{clip_z}{clip_w}$的值直接存进深度缓冲中，但这并不是必须的。通常驱动生产商会根据硬件来选择最好的存储格式。此时$clip_w$也并不会被抛弃，它仍然会在后续的一些工作中起到重要的作用，例如进行透视校正插值。
+
+在Unity中，从裁剪空间到屏幕空间的转换是Unity帮我们完成的。我们的顶点着色器只需要把顶点转换到裁剪空间即可。
+
