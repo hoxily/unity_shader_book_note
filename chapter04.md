@@ -1161,3 +1161,23 @@ $$
 如果直接使用$\boldsymbol{M}_{A \rightarrow B}$来变换法线，得到的新法线方向可能就不会与表面垂直了。下图给出了这样的一个例子。
 
 ![图4.48 进行非统一缩放时，如果使用和变换顶点相同的变换矩阵来变换法线，就会得到错误的结果，即变换后的法线方向与平面不再垂直](images/chapter04_wrong_example_using_same_matrix_to_transform_normal_vector.png)
+
+那么应该使用哪个矩阵来变换法线呢？可以由数学约束条件来推出这个矩阵。已知同一个顶点的切线$\bold{T}_A$和$\bold{N}_A$必须满足垂直条件，即$\bold{T}_A \cdot \bold{N}_A = 0$。给定变换矩阵$\boldsymbol{M}_{A \rightarrow B}$，已知$\bold{T}_B = \boldsymbol{M}_{A \rightarrow B} \bold{T}_A$。我们想要找到一个矩阵$\boldsymbol{G}$来变换法线$\bold{N}_A$，使得变换后的法线仍然与切线垂直。即
+
+$$
+\bold{T}_B \cdot \bold{N}_B = (\boldsymbol{M}_{A \rightarrow B} \bold{T}_A) \cdot (\boldsymbol{G}\bold{N}_A) = 0
+$$
+
+对上式进行一些推导后可得
+
+$$
+(\boldsymbol{M}_{A \rightarrow B} \bold{T}_A) \cdot (\boldsymbol{G}\bold{N}_A) = (\boldsymbol{M}_{A \rightarrow B} \bold{T}_A) ^ T (\boldsymbol{G}\bold{N}_A) = \bold{T}_A ^ T \boldsymbol{M}_{A \rightarrow B} ^ T \boldsymbol{G}\bold{N}_A = \bold{T}_A ^ T (\boldsymbol{M}_{A \rightarrow B} ^ T \boldsymbol{G})\bold{N}_A = 0
+$$
+
+由于 $\bold{T}_A \cdot \bold{N}_A = 0$，因此如果$\boldsymbol{M}_{A \rightarrow B} ^ T \boldsymbol{G} = \boldsymbol{I}$，那么上式即可成立。也就是说，如果$\boldsymbol{G} = (\boldsymbol{M}_{A \rightarrow B} ^ T)^{-1} = (\boldsymbol{M}_{A \rightarrow B} ^ {-1}) ^ T$，即使用原变换矩阵的逆转置矩阵来变换法线就可以得到正确的结果。
+
+注：上面的推导过程巧妙的利用了转置和点积的转换关系。并结合转置运算的特性和矩阵的结合律。
+
+如果变换矩阵是正交矩阵，那么就可以使用变换顶点的变换矩阵来直接变换法线。如果变换只包括旋转变换，那么这个变换矩阵就是正交矩阵。而如果变换只包含旋转和统一缩放，而不包含非统一缩放，我们利用统一缩放系数k来得到变换矩阵$\boldsymbol{M}_{A \rightarrow B}$的逆转置矩阵$(\boldsymbol{M}_{A \rightarrow B} ^ T) ^ {-1} = \frac{1}{k}\boldsymbol{M}_{A \rightarrow B}$。这样就可以避免计算逆矩阵的过程。如果含有非统一变换，那么我们就必须求解逆矩阵来得到变换法线的矩阵。
+
+注：如果变换只包含旋转和统一缩放，即$\boldsymbol{M}_{A \rightarrow B}$可以分解为缩放和旋转的复合变换$\boldsymbol{R}\boldsymbol{S}$，那么就有$((\boldsymbol{R}\boldsymbol{S})^T)^{-1} = (\boldsymbol{S}^T\boldsymbol{R}^T)^{-1} = ((\boldsymbol{R}^T)^{-1})((\boldsymbol{S}^T)^{-1}) = \boldsymbol{R}\boldsymbol{S}^{-1}$，缩放k倍的逆矩阵就是缩放$\frac{1}{k}$倍，所以有 $\boldsymbol{R}\boldsymbol{S}^{-1} = \boldsymbol{R}(\frac{1}{k}\boldsymbol{S})$。由于是线性变换，所以$\frac{1}{k}$可以拿到左边。
