@@ -1183,3 +1183,10 @@ $$
 注：如果变换只包含旋转和统一缩放，即$\boldsymbol{M}_{A \rightarrow B}$可以分解为缩放和旋转的复合变换$\boldsymbol{R}\boldsymbol{S}$，那么就有$((\boldsymbol{R}\boldsymbol{S})^T)^{-1} = (\boldsymbol{S}^T\boldsymbol{R}^T)^{-1} = ((\boldsymbol{R}^T)^{-1})((\boldsymbol{S}^T)^{-1}) = \boldsymbol{R}\boldsymbol{S}^{-1}$，缩放k倍的逆矩阵就是缩放$\frac{1}{k}$倍，所以有 $\boldsymbol{R}\boldsymbol{S}^{-1} = \boldsymbol{R}(\frac{1}{k}\boldsymbol{S})$。由于是线性变换，所以$\frac{1}{k}$可以拿到左边。
 
 疑问：为什么系数可以提到左边？
+
+## 4.8 Unity Shader的内置变量（数学篇）
+
+Unity为Shader提供了很多内置的参数，这使得我们不再需要自己手动计算一些值。下面将给出Unity内置的用于空间变换和摄像机以及屏幕参数的内置变量。这些内置变量可以在UnityShaderVariables.cginc文件中找到定义和说明。
+
+注：4.8 章节的表格内容可以在Unity的手册中找到，file:///D:/Users/hoxily/Documents/UnityDocs/Documentation.2018.4/en/Manual/SL-UnityShaderVariables.html
+
