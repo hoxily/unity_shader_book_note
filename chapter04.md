@@ -1188,5 +1188,26 @@ $$
 
 Unity为Shader提供了很多内置的参数，这使得我们不再需要自己手动计算一些值。下面将给出Unity内置的用于空间变换和摄像机以及屏幕参数的内置变量。这些内置变量可以在UnityShaderVariables.cginc文件中找到定义和说明。
 
+表格略。
+
 注：4.8 章节的表格内容可以在Unity的手册中找到，file:///D:/Users/hoxily/Documents/UnityDocs/Documentation.2018.4/en/Manual/SL-UnityShaderVariables.html
 
+## 4.9 答疑解惑
+
+### 4.9.1 使用$3 \times 3$还是$4 \times 4$的变换矩阵
+
+对于线性变换（例如旋转和缩放）来说，仅使用$3 \times 3$的矩阵就足够表示所有的变换了。但如果存在平移变换，我们就需要使用$4 \times 4$的矩阵。因此，在对顶点的变换中，我们通常使用$4 \times 4$的变换矩阵。当然在变换前我们需要把点坐标转换成齐次坐标，即顶点的w分量设为1。
+
+### 4.9.2 CG中的矢量和矩阵类型
+
+对于float3、float4类型的变量，我们既可以把它当成一个矢量，也可以把它当成一个$1 \times n$的行矩阵或者一个$n \times 1$的列矩阵。这取决于运算的种类和它们在运算中的位置。
+
+当进行点积操作时，两个操作数就被当成矢量类型。
+
+```shaderlab
+float4 a = float4(1.0, 2.0, 3.0, 4.0);
+float4 b = float4(1.0, 2.0, 3.0, 4.0);
+float result = dot(a, b);
+```
+
+在进行矩阵乘法时，参数的位置
