@@ -1245,3 +1245,14 @@ float3 row = M[0];
 float ele = M[1][0];
 ```
 
+### 4.9.3 Unity中的屏幕坐标：ComputeScreenPos/VPOS/WPOS
+
+在顶点、片元着色器中，有两种方式来获取片元的屏幕坐标。
+
+1. 在片元函数的参数中声明VPOS或WPOS语义。
+2. 使用UnityCG.cginc里定义的ComputeScreenPos函数。
+
+对于第1种方法，不可以在vert函数里输出SV_POSITION语义的结果。否则会引起shader报错：Duplicate system value semantic definition: input semantic 'SV_POSITION' and input semantic 'VPOS'。
+
+参考 https://docs.unity3d.com/Manual/SL-ShaderSemantics.html 的 Screen space pixel position: VPOS 的写法，才能避免错误。
+
