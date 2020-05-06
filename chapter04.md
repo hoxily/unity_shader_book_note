@@ -1210,4 +1210,38 @@ float4 b = float4(1.0, 2.0, 3.0, 4.0);
 float result = dot(a, b);
 ```
 
-在进行矩阵乘法时，参数的位置
+在进行矩阵乘法时，参数的位置将决定是按列矩阵还是行矩阵进行乘法。在CG中，矩阵乘法是通过mul函数实现的。例如：
+
+```shaderlab
+float4 v = float4(1.0, 2.0, 3.0, 4.0);
+float4x4 M = float4x4(
+   1.0, 0.0, 0.0, 0.0,
+   0.0, 1.0, 0.0, 0.0,
+   0.0, 0.0, 1.0, 0.0,
+   0.0, 0.0, 0.0, 1.0);
+//把v当成列矩阵和矩阵M进行右乘
+float4 column_mul_result = mul(M, v);
+//把v当成行矩阵和矩阵M进行左乘
+float4 row_mul_result = mul(v, M);
+//注意：column_mul_result不等于row_mul_result，而是：
+// mul(M, v) == mul(v, transpose(M));
+// mul(v, M) == mul(transpose(M), v);
+```
+
+注：上面的transpose后才相等，可以从矩阵的转置展开来考虑。即$(\boldsymbol{M}v)^T = v^T\boldsymbol{M}^T$，再结合CG里mul自动根据参数位置将float4识别为行矩阵或列矩阵即得。
+
+在CG中，float4x4或float3x3类型的变量是按行优先的方式进行填充的。当访问矩阵中的元素时，也是按照行来索引的。例如：
+
+```shaderlab
+//按行优先的方式初始化矩阵M
+float3x3 M = float3x3(
+   1.0, 2.0, 3.0,
+   4.0, 5.0, 6.0,
+   7.0, 8.0, 9.0);
+//得到M的第一行，即(1.0, 2.0, 3.0)
+float3 row = M[0];
+
+//得到M的第2行第1列元素，即4.0
+float ele = M[1][0];
+```
+
