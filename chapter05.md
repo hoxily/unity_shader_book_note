@@ -76,3 +76,13 @@ SV_Target | 输出值将会存储到渲染目标中。
 3. 帧调试器 Frame Debugger
 
 注：书中介绍的假彩色图像技术，可以在官方手册 file:///D:/Users/hoxily/Documents/UnityDocs/Documentation.2018.4/en/Manual/SL-VertexProgramInputs.html 的各种Visualize找到对应映射方法。并且官方手册里的可视化UV还能应对UV值超出[0, 1]的情况，使用蓝色分量来修饰这种情况。
+
+### 5.5.2 Graphics Debugger
+
+官方手册地址：file:///D:/Users/hoxily/Documents/UnityDocs/Documentation.2018.4/en/Manual/SL-DebuggingD3D11ShadersWithVS.html
+
+参照手册上的说明，成功Capture到一帧图像。也能在呈现目标上点击查看像素的DrawIndexed方法。
+
+如果没有开启 #pragma enable_d3d11_debug_symbols ，那么只能以汇编形式查看，完全看不懂。
+
+如果开启 #pragma enable_d3d11_debug_symbols，那么调试时能查看到hlsl级代码，但是看起来行号没有对上。因为我选择的normal toggle，但是调试时竟然在 VisualizeUv 函数里跳动。
