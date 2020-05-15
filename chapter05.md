@@ -86,3 +86,9 @@ SV_Target | 输出值将会存储到渲染目标中。
 如果没有开启 #pragma enable_d3d11_debug_symbols ，那么只能以汇编形式查看，完全看不懂。
 
 如果开启 #pragma enable_d3d11_debug_symbols，那么调试时能查看到hlsl级代码，但是看起来行号没有对上。因为我选择的normal toggle，但是调试时竟然在 VisualizeUv 函数里跳动。
+
+### 5.5.3 Frame Debugger
+
+Frame Debugger是Unity集成在Editor的帧调试器。可以使用Frame Debugger看到游戏图像的某一帧是如何一步步渲染出来的。
+
+官方手册地址：file:///D:/Users/hoxily/Documents/UnityDocs/Documentation.2018.4/en/Manual/FrameDebugger.html
