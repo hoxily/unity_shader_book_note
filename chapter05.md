@@ -92,3 +92,42 @@ SV_Target | 输出值将会存储到渲染目标中。
 Frame Debugger是Unity集成在Editor的帧调试器。可以使用Frame Debugger看到游戏图像的某一帧是如何一步步渲染出来的。
 
 官方手册地址：file:///D:/Users/hoxily/Documents/UnityDocs/Documentation.2018.4/en/Manual/FrameDebugger.html
+
+## 5.6 小心渲染平台的差异
+
+官方手册地址：file:///D:/Users/hoxily/Documents/UnityDocs/Documentation.2018.4/en/Manual/SL-PlatformDifferences.html
+
+### 5.6.1 渲染纹理的坐标差异
+
+Unity默认使用OpenGL的屏幕空间坐标。即左下角为(0, 0)，右上角为(1, 1)。
+
+当在DirectX平台上使用渲染到纹理技术时，Unity会为我们翻转屏幕图像纹理，以便在不同平台上达到一致性。但是在特殊情况下Unity不会执行这个翻转操作，即开启了抗锯齿（在Edit->Project Settings->Quality->Anti Aliasing）并且使用了渲染到纹理技术。在这种情况下，Unity首先渲染得到屏幕图像，再由硬件进行抗锯齿处理，得到一张渲染纹理供我们处理。
+
+```shaderlab
+#if UNITY_UV_STARTS_AT_TOP
+if (_MainTex_TexelSize.y < 0)
+{
+    uv.y = 1 - uv.y;
+}
+#endif
+```
+
+## 5.7 Shader整洁之道
+
+### 5.7.1 数值精度
+
+### 5.7.2 规范语法
+
+DirectX平台对Shader的语义有更加严格的要求。
+
+### 5.7.3 避免不必要的计算
+
+不同的Shader Target、不同的着色器阶段，我们可使用的临时寄存器和指令数目都是不同的。
+
+详细 Shader Target表见 file:///D:/Users/hoxily/Documents/UnityDocs/Documentation.2018.4/en/Manual/SL-ShaderCompileTargets.html
+
+### 5.7.4 慎用分支和循环语句
+
+### 5.7.5 不要除以0
+
+对于除数可能为0的情况，强制截取到非零的范围。
