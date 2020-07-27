@@ -386,3 +386,13 @@ $$ r = \hat I - 2(\hat n \cdot \hat I)\hat n $$
 公式推导可以参考blog：[求反射向量](https://www.cnblogs.com/graphics/archive/2013/02/21/2920627.html)
 
 小提示：这里的入射与反射都是针对表面交点来说的。所以入射光线是从光源方向指向表面交点。反射光线则是从表面交点指向外部。
+
+### 6.5.1 实践逐顶点光照
+
+逐顶点的高光反射光照效果如下：
+
+![图 6.10 逐顶点的高光反射光照效果](images/chapter06_specular_vertex_level.png)
+
+操作步骤略，着色器代码详见配套工程的Assets/Chapter06/SpecularVertexLevel.shader。
+
+使用逐顶点的方法得到的高光效果有bug。从图 6.10 中看出高光部分不平滑。这是因为，高光反射部分的计算是非线性的，而在顶点着色器中计算光照再进行插值的过程是线性的，破坏了原计算的非线性关系。
