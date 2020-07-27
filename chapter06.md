@@ -367,7 +367,7 @@ Shader "Custom/HalfLambert" {
 
 $$ c_{specular} = (c_{light} \cdot m_{specular})\max(0, \hat v \cdot r)^{m_{gloss}} $$
 
-从公式可以看出，要计算高光反射需要知道4个参数：入射光线的颜色和强度$c_{light}$，材质的高光反射系数$m_{specular}$，视角方向$\hat v$以及反射方向$r$。其中，反射方向$r$可以由表面法线$\hat n$和光源方向$\hat I$计算而得：
+从公式可以看出，要计算高光反射需要知道5个参数：入射光线的颜色和强度$c_{light}$，材质的高光反射系数$m_{specular}$，视角方向$\hat v$，反射方向$r$以及影响高光大小的指数$m_{gloss}$。其中，反射方向$r$可以由表面法线$\hat n$和光源方向$\hat I$计算而得：
 
 $$ r = \hat I - 2(\hat n \cdot \hat I)\hat n $$
 
